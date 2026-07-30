@@ -1,0 +1,203 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@7.0.2/skeleton.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@7.0.2/themes/monarch/theme.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@7.0.2/themes/monarch/palettes/purple.css" rel="stylesheet">
+
+<style>
+    .panel-calendario{position:relative;background:#fff;width:100%;height:auto;padding:30px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08);}
+    .panel-detalle-evento{position:relative;background:#fff;width:100%;height:auto;padding:25px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08);border-left:5px solid #e52b1a;}
+    .detalle-etiqueta{font-size:13px;font-weight:700;color:#777;text-transform:uppercase;margin-bottom:3px;}
+    .detalle-valor{font-size:16px;color:#222;margin-bottom:16px;}
+    .estado-calendario{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+    .estado-color{display:inline-block;width:14px;height:14px;border-radius:50%;}
+    .fc .fc-toolbar-title{font-size:1.6rem;font-weight:700;text-transform:capitalize;}
+    .fc .fc-button-primary{background:#e52b1a!important;border-color:#e52b1a!important;color:#fff!important;}
+    .fc .fc-button-primary:hover{background:#bd2013!important;border-color:#bd2013!important;}
+    .fc .fc-button-primary:disabled{background:#777!important;border-color:#777!important;}
+    .fc .fc-button-active{background:#9e1b10!important;border-color:#9e1b10!important;}
+    .fc .fc-event{cursor:pointer;border-radius:6px;padding:2px 4px;}
+    .fc .fc-daygrid-day-number{color:#222;text-decoration:none;}
+    .fc .fc-col-header-cell-cushion{color:#222;text-decoration:none;font-weight:700;}
+    .leyenda-calendario{display:flex;flex-wrap:wrap;gap:15px;margin-top:20px;}
+    @media(max-width:767px){.panel-calendario{padding:15px;}.fc .fc-toolbar{flex-direction:column;gap:12px;}.fc .fc-toolbar-title{font-size:1.3rem;}}
+</style>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Planificación de catering</span>
+                <h2 class="stitle text-start mb-1">Calendario de <span>eventos</span></h2>
+                <p class="text-muted mb-0">Consulta las fechas, horarios y estados de los eventos registrados.</p>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="/nuevoEvento/" class="btn-red"><i class="fas fa-plus"></i> Nuevo evento</a>
+                <a href="/eventos/" class="btn btn-secondary"><i class="fas fa-list"></i> Ver listado</a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-xl-9">
+                <div class="panel-calendario">
+
+                    <div id="calendario"></div>
+
+                    <div class="leyenda-calendario">
+                        <div class="estado-calendario"><span class="estado-color" style="background:#6c757d;"></span><span>Cotizado</span></div>
+                        <div class="estado-calendario"><span class="estado-color" style="background:#0d6efd;"></span><span>Confirmado</span></div>
+                        <div class="estado-calendario"><span class="estado-color" style="background:#fd7e14;"></span><span>En preparación</span></div>
+                        <div class="estado-calendario"><span class="estado-color" style="background:#198754;"></span><span>En curso</span></div>
+                        <div class="estado-calendario"><span class="estado-color" style="background:#212529;"></span><span>Finalizado</span></div>
+                        <div class="estado-calendario"><span class="estado-color" style="background:#dc3545;"></span><span>Cancelado</span></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-3">
+
+                <div id="mensaje_seleccion" class="panel-detalle-evento text-center">
+                    <i class="fas fa-calendar-check fa-3x text-danger mb-3"></i>
+                    <h5>Seleccione un evento</h5>
+                    <p class="text-muted mb-0">Presione sobre un evento del calendario para consultar su información.</p>
+                </div>
+
+                <div id="detalle_evento" class="panel-detalle-evento d-none">
+
+                    <span class="slbl">Información del evento</span>
+                    <h4 id="detalle_nombre" class="mb-4"></h4>
+
+                    <div class="detalle-etiqueta">Cliente</div>
+                    <div id="detalle_cliente" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Tipo de servicio</div>
+                    <div id="detalle_tipo" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Menú contratado</div>
+                    <div id="detalle_menu" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Fecha de inicio</div>
+                    <div id="detalle_inicio" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Fecha de finalización</div>
+                    <div id="detalle_fin" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Dirección</div>
+                    <div id="detalle_direccion" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Número de personas</div>
+                    <div id="detalle_personas" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Estado</div>
+                    <div id="detalle_estado" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Total contratado</div>
+                    <div id="detalle_total" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Anticipo</div>
+                    <div id="detalle_anticipo" class="detalle-valor"></div>
+
+                    <div class="detalle-etiqueta">Observaciones</div>
+                    <div id="detalle_observaciones" class="detalle-valor"></div>
+
+                    <a id="boton_editar_evento" href="#" class="btn-red w-100 justify-content-center"><i class="fas fa-edit"></i> Editar evento</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@7.0.2/all/global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@7.0.2/themes/monarch/global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@7.0.2/locales/es/global.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const elementoCalendario = document.getElementById("calendario");
+
+    const calendario = new FullCalendar.Calendar(elementoCalendario, {
+        themeSystem: "monarch",
+        locale: "es",
+        initialView: "dayGridMonth",
+        firstDay: 1,
+        height: "auto",
+        nowIndicator: true,
+        navLinks: true,
+        dayMaxEvents: 3,
+        events: "/datosCalendario/",
+
+        headerToolbar: {
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
+        },
+
+        buttonText: {
+            today: "Hoy",
+            month: "Mes",
+            week: "Semana",
+            day: "Día",
+            list: "Agenda"
+        },
+
+        eventTimeFormat: {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+        },
+
+        eventClick: function(info){
+            const evento = info.event;
+            const datos = evento.extendedProps;
+
+            document.getElementById("mensaje_seleccion").classList.add("d-none");
+            document.getElementById("detalle_evento").classList.remove("d-none");
+
+            document.getElementById("detalle_nombre").textContent = evento.title;
+            document.getElementById("detalle_cliente").textContent = datos.cliente;
+            document.getElementById("detalle_tipo").textContent = datos.tipo_servicio;
+            document.getElementById("detalle_menu").textContent = datos.menu;
+            document.getElementById("detalle_inicio").textContent = formatearFecha(evento.start);
+            document.getElementById("detalle_fin").textContent = formatearFecha(evento.end);
+            document.getElementById("detalle_direccion").textContent = datos.direccion;
+            document.getElementById("detalle_personas").textContent = datos.numero_personas;
+            document.getElementById("detalle_estado").textContent = datos.estado;
+            document.getElementById("detalle_total").textContent = "$" + parseFloat(datos.total_contratado).toFixed(2);
+            document.getElementById("detalle_anticipo").textContent = "$" + parseFloat(datos.anticipo).toFixed(2);
+            document.getElementById("detalle_observaciones").textContent = datos.observaciones;
+            document.getElementById("boton_editar_evento").href = "/editarEvento/" + evento.id + "/";
+        }
+    });
+
+    calendario.render();
+
+    function formatearFecha(fecha){
+        if(!fecha){
+            return "Sin fecha";
+        }
+
+        return fecha.toLocaleString("es-EC", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+});
+</script>
+
+{% endblock %}

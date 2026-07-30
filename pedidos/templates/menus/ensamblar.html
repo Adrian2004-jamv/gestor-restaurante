@@ -1,0 +1,275 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+
+<style>
+    .panel-ensamblador{position:relative;background:#fff;width:100%;height:auto;padding:25px;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.08);}
+    .lista-disponibles{max-height:780px;overflow-y:auto;padding-right:5px;}
+    .plato-disponible{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e1e1e1;border-radius:12px;padding:12px;margin-bottom:12px;cursor:grab;transition:.2s;}
+    .plato-disponible:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.10);border-color:#dc3545;}
+    .plato-disponible:active{cursor:grabbing;}
+    .plato-disponible img{width:60px;height:60px;object-fit:cover;border-radius:10px;}
+    .imagen-vacia{width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#f1f1f1;border-radius:10px;color:#777;font-size:22px;}
+    .zona-contenedor{background:#f8f9fa;border:1px solid #e9e9e9;border-radius:15px;padding:15px;margin-bottom:18px;}
+    .zona-encabezado{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
+    .zona-menu{min-height:105px;border:2px dashed #ccc;border-radius:12px;padding:12px;transition:.2s;}
+    .zona-activa{border-color:#dc3545!important;background:#fff1f1!important;}
+    .zona-vacia{text-align:center;color:#999;padding:25px 10px;}
+    .plato-asignado{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px;margin-bottom:9px;cursor:move;}
+    .plato-asignado:last-child{margin-bottom:0;}
+    .manejador-plato{color:#999;margin-right:10px;cursor:move;}
+    .plato-helper{width:320px!important;box-shadow:0 8px 25px rgba(0,0,0,.20);z-index:99999;}
+    .ui-sortable-placeholder{visibility:visible!important;height:70px;background:#ffe5e5!important;border:2px dashed #dc3545!important;border-radius:10px;margin-bottom:9px;}
+    .contador-zona{min-width:28px;}
+</style>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Ensamblador visual</span>
+                <h2 class="stitle text-start mb-1">Menú <span>{{ menu.nombre }}</span></h2>
+                <p class="text-muted mb-0">Arrastre los platos hacia la sección correspondiente del menú.</p>
+            </div>
+
+            <a href="/menus/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a menús</a>
+        </div>
+
+        <form id="form_token" method="post" style="display:none;">
+            {% csrf_token %}
+        </form>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+                <div class="panel-ensamblador">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0"><i class="fas fa-utensils text-danger me-2"></i>Platos disponibles</h4>
+                        <span class="badge bg-dark">{{ platos_disponibles.count }}</span>
+                    </div>
+
+                    <p class="text-muted">Arrastre cada plato hacia la categoría que le corresponde.</p>
+
+                    <div class="lista-disponibles">
+
+                        {% for plato in platos_disponibles %}
+
+                            <div class="plato-disponible" data-plato-id="{{ plato.id }}" data-tipo="{{ plato.tiempo_menu }}">
+
+                                {% if plato.imagen %}
+                                    <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}">
+                                {% else %}
+                                    <div class="imagen-vacia"><i class="fas fa-utensils"></i></div>
+                                {% endif %}
+
+                                <div class="flex-grow-1">
+                                    <strong class="d-block">{{ plato.nombre }}</strong>
+                                    <small class="text-muted d-block">{{ plato.get_tiempo_menu_display }}</small>
+                                    <small class="text-success">${{ plato.precio_venta|floatformat:2 }}</small>
+                                </div>
+
+                                <i class="fas fa-grip-vertical text-muted"></i>
+
+                            </div>
+
+                        {% empty %}
+
+                            <div class="alert alert-success text-center mb-0">
+                                <i class="fas fa-check-circle fa-2x mb-2"></i>
+                                <p class="mb-0">Todos los platos disponibles ya fueron agregados.</p>
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="panel-ensamblador">
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                        <div>
+                            <h4 class="mb-1"><i class="fas fa-layer-group text-danger me-2"></i>Composición del menú</h4>
+                            <p class="text-muted mb-0">Arrastre los platos agregados para cambiar su orden.</p>
+                        </div>
+
+                        <span class="badge bg-danger fs-6">{{ cantidad_platos }} plato{{ cantidad_platos|pluralize }}</span>
+                    </div>
+
+                    {% for zona in zonas %}
+
+                        <div class="zona-contenedor">
+
+                            <div class="zona-encabezado">
+                                <h5 class="mb-0"><i class="{{ zona.icono }} text-danger me-2"></i>{{ zona.nombre }}</h5>
+                                <span class="badge bg-secondary contador-zona">{{ zona.platos.count }}</span>
+                            </div>
+
+                            <div class="zona-menu" data-tipo="{{ zona.codigo }}">
+
+                                {% for item in zona.platos %}
+
+                                    <div class="plato-asignado" data-menu-plato-id="{{ item.id }}">
+
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-grip-vertical manejador-plato"></i>
+
+                                            <div>
+                                                <strong class="d-block">{{ item.plato.nombre }}</strong>
+                                                <small class="text-muted d-block">Tiempo: {{ item.get_tiempo_menu_display }}</small>
+                                                <form action="/actualizarCantidadMenuPlato/{{ item.id }}/" method="post" class="d-flex align-items-center gap-2 mt-1">{% csrf_token %}<small class="text-muted">Cantidad por persona:</small><input type="number" name="cantidad_por_persona" value="{{ item.cantidad_por_persona }}" min="0.01" step="0.01" class="form-control form-control-sm" style="width:85px;"><button type="submit" class="btn btn-success btn-sm" title="Actualizar cantidad"><i class="fas fa-check"></i></button></form>
+                                                <small class="text-success">${{ item.plato.precio_venta|floatformat:2 }}</small>
+                                            </div>
+                                        </div>
+
+                                        <form action="/eliminarPlatoMenu/{{ item.id }}/" method="post" onsubmit="return confirm('¿Está seguro de quitar este plato del menú?');">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Quitar plato"><i class="fas fa-trash"></i></button>
+                                        </form>
+
+                                    </div>
+
+                                {% empty %}
+
+                                    <div class="zona-vacia">
+                                        <i class="fas fa-arrow-down mb-2"></i>
+                                        <p class="mb-0">Arrastre aquí los platos de esta categoría.</p>
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+
+<script>
+jQuery(function($){
+
+    const token = $("#form_token input[name='csrfmiddlewaretoken']").val();
+    const menuId = "{{ menu.id }}";
+
+    if(typeof $.fn.draggable !== "function"){
+        alert("jQuery UI no se cargó correctamente.");
+        return;
+    }
+
+    $(".plato-disponible").draggable({
+        helper: "clone",
+        appendTo: "body",
+        revert: "invalid",
+        cursor: "grabbing",
+        cursorAt: {
+            top: 30,
+            left: 100
+        },
+        zIndex: 99999,
+        scroll: false,
+        start: function(){
+            $(this).css("opacity", "0.5");
+        },
+        stop: function(){
+            $(this).css("opacity", "1");
+        }
+    });
+
+    $(".zona-menu").droppable({
+        accept: ".plato-disponible",
+        tolerance: "pointer",
+
+        classes: {
+            "ui-droppable-hover": "zona-activa"
+        },
+
+        drop: function(evento, ui){
+
+            const platoId = ui.draggable.attr("data-plato-id");
+            const tipoPlato = ui.draggable.attr("data-tipo");
+            const tipoZona = $(this).attr("data-tipo");
+
+            if(tipoPlato !== tipoZona){
+                alert("Este plato no pertenece a esta categoría.");
+                return;
+            }
+
+            $.ajax({
+                url: "/agregarPlatoMenu/",
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: token,
+                    menu_id: menuId,
+                    plato_id: platoId
+                },
+                success: function(respuesta){
+                    if(respuesta.ok){
+                        location.reload();
+                    }else{
+                        alert(respuesta.mensaje);
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr.responseText);
+                    alert("No se pudo agregar el plato al menú.");
+                }
+            });
+        }
+    });
+
+    $(".zona-menu").sortable({
+        items: ".plato-asignado",
+        handle: ".manejador-plato",
+        placeholder: "ui-sortable-placeholder",
+        cancel: "button, form",
+        tolerance: "pointer",
+
+        update: function(){
+
+            const identificadores = [];
+
+            $(this).find(".plato-asignado").each(function(){
+                identificadores.push($(this).attr("data-menu-plato-id"));
+            });
+
+            $.ajax({
+                url: "/ordenarPlatosMenu/",
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: token,
+                    menu_id: menuId,
+                    "ids[]": identificadores
+                },
+                success: function(respuesta){
+                    if(!respuesta.ok){
+                        alert(respuesta.mensaje);
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr.responseText);
+                    alert("No se pudo guardar el orden.");
+                }
+            });
+        }
+    });
+
+});
+</script>
+{% endblock %}

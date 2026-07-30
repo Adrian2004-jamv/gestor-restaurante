@@ -1,0 +1,286 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<style>
+    .plato-comanda{border:1px solid #e5e5e5;border-radius:14px;padding:15px;height:100%;transition:.2s;background:#fff;}
+    .plato-comanda:hover{box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px);}
+    .tecla-badge{width:32px;height:32px;border-radius:8px;background:#212529;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;}
+    .cantidad-comanda{max-width:75px;text-align:center;font-weight:700;}
+    .plato-agregado{border-color:#198754!important;background:#effff4!important;box-shadow:0 6px 18px rgba(25,135,84,.25)!important;transform:scale(1.02)!important;}
+</style>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Despacho rápido</span>
+                <h2 class="stitle text-start mb-0">Nueva <span>comanda</span></h2>
+                <p class="text-muted mb-0">Presione las teclas numéricas asignadas para agregar platos.</p>
+            </div>
+
+            <a href="/comandas/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver</a>
+        </div>
+
+        <div class="alert alert-info d-flex justify-content-between align-items-center flex-wrap gap-2" id="panel_estado_teclas">
+            <span id="estado_teclas"><i class="fas fa-keyboard me-2"></i>Cargando teclas rápidas...</span>
+            <button type="button" class="btn btn-dark btn-sm" id="boton_activar_teclas"><i class="fas fa-bolt"></i> Activar teclas</button>
+        </div>
+
+        <form action="/guardarComanda/" method="post">
+            {% csrf_token %}
+
+            <div class="card border-0 shadow-lg rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <div class="row g-3">
+
+                        <div class="col-md-8">
+                            <label class="flbl">Evento</label>
+                            <select name="evento_id" class="fctrl" onfocus="desactivarModoTeclas()" onchange="activarModoTeclas()" required>
+                                <option value="">Seleccione un evento</option>
+                                {% for evento in eventos %}
+                                    <option value="{{ evento.id }}">{{ evento.nombre_evento }} - {{ evento.fecha_inicio|date:"d/m/Y" }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="flbl">Número de mesa</label>
+                            <input type="number" name="numero_mesa" class="fctrl" min="1" placeholder="Opcional" onfocus="desactivarModoTeclas()" onblur="activarModoTeclas()">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="flbl">Observaciones generales</label>
+                            <textarea name="observaciones" class="fctrl" rows="2" placeholder="Ingrese observaciones de la comanda" onfocus="desactivarModoTeclas()" onblur="activarModoTeclas()"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3" id="panel_platos">
+                {% for plato in platos %}
+                    <div class="col-md-6 col-xl-4">
+                        <div class="plato-comanda" data-tarjeta-plato="{{ plato.id }}">
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <strong class="d-block">{{ plato.nombre }}</strong>
+                                    <small class="text-muted">{{ plato.get_tiempo_menu_display }}</small>
+                                </div>
+
+                                {% if plato.tecla_rapida != None %}
+                                    <span class="tecla-badge">{{ plato.tecla_rapida }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-center gap-2">
+                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="restarPlato({{ plato.id }})"><i class="fas fa-minus"></i></button>
+                                <input type="number" name="cantidad_{{ plato.id }}" id="cantidad_{{ plato.id }}" class="form-control cantidad-comanda" value="0" min="0" readonly>
+                                <button type="button" class="btn btn-success btn-sm boton-plato-hotkey" data-tecla="{{ plato.tecla_rapida|default_if_none:'' }}" data-plato-id="{{ plato.id }}" onclick="agregarPlato({{ plato.id }})"><i class="fas fa-plus"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12"><div class="alert alert-warning">No existen platos activos.</div></div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn-red"><i class="fas fa-save"></i> Guardar comanda</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<script src="https://unpkg.com/hotkeys-js@4.0.4/dist/hotkeys.min.js"></script>
+
+<script>
+(function(){
+    "use strict";
+
+    const VERSION_COMANDA = "COMANDA_TECLAS_V4";
+    let modoTeclasActivo = false;
+    let ultimaTeclaProcesada = "";
+    let ultimoMomentoProcesado = 0;
+
+    console.log(VERSION_COMANDA);
+
+    window.agregarPlato = function(id){
+        const campo = document.getElementById("cantidad_" + id);
+
+        if(!campo){
+            console.error("No existe el campo cantidad_" + id);
+            return;
+        }
+
+        campo.value = (parseInt(campo.value, 10) || 0) + 1;
+
+        const tarjeta = campo.closest(".plato-comanda");
+
+        if(tarjeta){
+            tarjeta.classList.add("plato-agregado");
+            setTimeout(function(){
+                tarjeta.classList.remove("plato-agregado");
+            }, 300);
+        }
+    };
+
+    window.restarPlato = function(id){
+        const campo = document.getElementById("cantidad_" + id);
+
+        if(!campo){
+            return;
+        }
+
+        const cantidad = parseInt(campo.value, 10) || 0;
+
+        if(cantidad > 0){
+            campo.value = cantidad - 1;
+        }
+    };
+
+    function mostrarEstado(mensaje, tipo){
+        const panel = document.getElementById("panel_estado_teclas");
+        const estado = document.getElementById("estado_teclas");
+
+        if(!panel || !estado){
+            return;
+        }
+
+        panel.classList.remove("alert-info", "alert-success", "alert-warning", "alert-danger");
+        panel.classList.add("alert-" + tipo);
+        estado.innerHTML = '<i class="fas fa-keyboard me-2"></i>' + mensaje;
+    }
+
+    window.activarModoTeclas = function(){
+        modoTeclasActivo = true;
+
+        if(document.activeElement && typeof document.activeElement.blur === "function"){
+            document.activeElement.blur();
+        }
+
+        document.body.setAttribute("tabindex", "-1");
+        document.body.focus();
+
+        const botones = Array.from(document.querySelectorAll(".boton-plato-hotkey"));
+        const teclas = botones.map(function(boton){
+            return boton.getAttribute("data-tecla");
+        }).filter(function(tecla){
+            return /^[0-9]$/.test(tecla);
+        });
+
+        mostrarEstado("Teclas activadas: " + (teclas.length ? teclas.join(", ") : "ninguna asignada"), teclas.length ? "success" : "warning");
+    };
+
+    window.desactivarModoTeclas = function(){
+        modoTeclasActivo = false;
+        mostrarEstado("Teclas pausadas mientras escribe. Pulse “Activar teclas” para continuar.", "warning");
+    };
+
+    function obtenerTecla(evento){
+        if(evento.code && /^Digit[0-9]$/.test(evento.code)){
+            return evento.code.substring(5);
+        }
+
+        if(evento.code && /^Numpad[0-9]$/.test(evento.code)){
+            return evento.code.substring(6);
+        }
+
+        if(evento.key && /^[0-9]$/.test(evento.key)){
+            return evento.key;
+        }
+
+        const codigo = evento.which || evento.keyCode || 0;
+
+        if(codigo >= 48 && codigo <= 57){
+            return String(codigo - 48);
+        }
+
+        if(codigo >= 96 && codigo <= 105){
+            return String(codigo - 96);
+        }
+
+        return "";
+    }
+
+    function procesarTecla(evento){
+        if(evento.__comandaProcesada || !modoTeclasActivo){
+            return;
+        }
+
+        if(evento.ctrlKey || evento.altKey || evento.metaKey || evento.repeat){
+            return;
+        }
+
+        const tecla = obtenerTecla(evento);
+
+        if(tecla === ""){
+            return;
+        }
+
+        const momento = Date.now();
+
+        if(ultimaTeclaProcesada === tecla && momento - ultimoMomentoProcesado < 80){
+            return;
+        }
+
+        const boton = document.querySelector('.boton-plato-hotkey[data-tecla="' + tecla + '"]');
+
+        if(!boton){
+            mostrarEstado("No existe un plato asignado a la tecla " + tecla + ".", "warning");
+            return;
+        }
+
+        evento.__comandaProcesada = true;
+        evento.preventDefault();
+        evento.stopPropagation();
+
+        ultimaTeclaProcesada = tecla;
+        ultimoMomentoProcesado = momento;
+
+        const platoId = boton.getAttribute("data-plato-id");
+        agregarPlato(platoId);
+        mostrarEstado("Tecla " + tecla + " detectada correctamente.", "success");
+
+        console.log("Tecla detectada:", tecla, "Plato:", platoId);
+    }
+
+    function iniciarTeclas(){
+        const botonActivar = document.getElementById("boton_activar_teclas");
+
+        if(botonActivar){
+            botonActivar.addEventListener("click", activarModoTeclas);
+        }
+
+        window.addEventListener("keydown", procesarTecla, true);
+
+        if(typeof hotkeys === "function"){
+            hotkeys.filter = function(){
+                return true;
+            };
+
+            hotkeys("0,1,2,3,4,5,6,7,8,9", function(evento){
+                procesarTecla(evento);
+            });
+
+            console.log("Hotkeys-js cargado correctamente.");
+        }else{
+            console.warn("Hotkeys-js no se cargó; funciona el detector nativo de respaldo.");
+        }
+
+        activarModoTeclas();
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener("DOMContentLoaded", iniciarTeclas);
+    }else{
+        iniciarTeclas();
+    }
+})();
+</script>
+
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="slbl">Logística del catering</span>
+
+            {% if entrega %}
+                <h2 class="stitle">
+                    Editar <span>entrega</span>
+                </h2>
+            {% else %}
+                <h2 class="stitle">
+                    Registrar <span>entrega</span>
+                </h2>
+            {% endif %}
+
+            <div class="sline"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4 p-lg-5">
+
+                        {% if entrega %}
+                            <form action="/actualizarEntrega/{{ entrega.id }}/" method="post">
+                        {% else %}
+                            <form action="/guardarEntrega/" method="post">
+                        {% endif %}
+
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="flbl">
+                                        Evento
+                                    </label>
+
+                                    <select name="evento_id" class="fctrl" required>
+                                        <option value="">
+                                            Seleccione
+                                        </option>
+
+                                        {% for evento in eventos %}
+                                            <option value="{{ evento.id }}" {% if entrega.evento_id == evento.id %}selected{% endif %}>
+                                                {{ evento.nombre_evento }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">
+                                        Responsable
+                                    </label>
+
+                                    <select name="responsable_id" class="fctrl">
+                                        <option value="">
+                                            Sin responsable
+                                        </option>
+
+                                        {% for responsable in responsables %}
+                                            <option value="{{ responsable.id }}" {% if entrega.responsable_id == responsable.id %}selected{% endif %}>
+                                                {{ responsable.get_full_name|default:responsable.username }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">
+                                        Fecha de salida
+                                    </label>
+
+                                    <input type="datetime-local" name="fecha_salida" class="fctrl" value="{{ entrega.fecha_salida|date:'Y-m-d\TH:i' }}" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">
+                                        Fecha de entrega
+                                    </label>
+
+                                    <input type="datetime-local" name="fecha_entrega" class="fctrl" value="{{ entrega.fecha_entrega|date:'Y-m-d\TH:i' }}">
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label class="flbl">
+                                        Dirección de entrega
+                                    </label>
+
+                                    <input type="text" name="direccion_entrega" class="fctrl" value="{{ entrega.direccion_entrega|default:'' }}" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">
+                                        Vehículo
+                                    </label>
+
+                                    <input type="text" name="vehiculo" class="fctrl" value="{{ entrega.vehiculo|default:'' }}" placeholder="Placa o descripción">
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="flbl">
+                                        Estado
+                                    </label>
+
+                                    <select name="estado" class="fctrl" required>
+                                        <option value="PENDIENTE" {% if not entrega or entrega.estado == "PENDIENTE" %}selected{% endif %}>
+                                            Pendiente
+                                        </option>
+
+                                        <option value="PREPARANDO" {% if entrega.estado == "PREPARANDO" %}selected{% endif %}>
+                                            Preparando carga
+                                        </option>
+
+                                        <option value="EN_RUTA" {% if entrega.estado == "EN_RUTA" %}selected{% endif %}>
+                                            En ruta
+                                        </option>
+
+                                        <option value="ENTREGADA" {% if entrega.estado == "ENTREGADA" %}selected{% endif %}>
+                                            Entregada
+                                        </option>
+
+                                        <option value="INCIDENCIA" {% if entrega.estado == "INCIDENCIA" %}selected{% endif %}>
+                                            Con incidencia
+                                        </option>
+
+                                        <option value="CANCELADA" {% if entrega.estado == "CANCELADA" %}selected{% endif %}>
+                                            Cancelada
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">
+                                        Observaciones
+                                    </label>
+
+                                    <textarea name="observaciones" class="fctrl" rows="3">{{ entrega.observaciones|default:'' }}</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-center gap-2">
+                                    <button type="submit" class="btn-red">
+                                        <i class="fas fa-save"></i>
+                                        Guardar entrega
+                                    </button>
+
+                                    <a href="/entregas/" class="btn btn-secondary">
+                                        <i class="fas fa-times"></i>
+                                        Cancelar
+                                    </a>
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

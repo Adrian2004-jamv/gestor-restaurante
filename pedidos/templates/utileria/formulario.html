@@ -1,0 +1,157 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="slbl">Inventario para eventos</span>
+
+            {% if utileria %}
+                <h2 class="stitle">
+                    Editar <span>utilería</span>
+                </h2>
+            {% else %}
+                <h2 class="stitle">
+                    Registrar <span>utilería</span>
+                </h2>
+            {% endif %}
+
+            <div class="sline"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-xl-8">
+
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4 p-lg-5">
+
+                        {% if utileria %}
+                            <form action="/actualizarUtileria/{{ utileria.id }}/" method="post">
+                        {% else %}
+                            <form action="/guardarUtileria/" method="post">
+                        {% endif %}
+
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+
+                                <div class="col-md-7">
+                                    <label class="flbl">
+                                        Nombre
+                                    </label>
+
+                                    <input type="text" name="nombre" class="fctrl" value="{{ utileria.nombre|default:'' }}" placeholder="Nombre del artículo" required>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="flbl">
+                                        Categoría
+                                    </label>
+
+                                    <select name="categoria" class="fctrl" required>
+                                        <option value="">
+                                            Seleccione
+                                        </option>
+
+                                        <option value="MESA" {% if utileria.categoria == "MESA" %}selected{% endif %}>
+                                            Mesas
+                                        </option>
+
+                                        <option value="SILLA" {% if utileria.categoria == "SILLA" %}selected{% endif %}>
+                                            Sillas
+                                        </option>
+
+                                        <option value="VAJILLA" {% if utileria.categoria == "VAJILLA" %}selected{% endif %}>
+                                            Vajilla
+                                        </option>
+
+                                        <option value="CUBIERTOS" {% if utileria.categoria == "CUBIERTOS" %}selected{% endif %}>
+                                            Cubiertos
+                                        </option>
+
+                                        <option value="MANTELERIA" {% if utileria.categoria == "MANTELERIA" %}selected{% endif %}>
+                                            Mantelería
+                                        </option>
+
+                                        <option value="DECORACION" {% if utileria.categoria == "DECORACION" %}selected{% endif %}>
+                                            Decoración
+                                        </option>
+
+                                        <option value="EQUIPO" {% if utileria.categoria == "EQUIPO" %}selected{% endif %}>
+                                            Equipo de cocina
+                                        </option>
+
+                                        <option value="OTRO" {% if utileria.categoria == "OTRO" %}selected{% endif %}>
+                                            Otro
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">
+                                        Cantidad total
+                                    </label>
+
+                                    <input type="number" name="cantidad_total" class="fctrl" value="{{ utileria.cantidad_total|default:'0' }}" min="0" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">
+                                        Costo de reposición
+                                    </label>
+
+                                    <input type="number" name="costo_reposicion" class="fctrl" value="{{ utileria.costo_reposicion|default:'0.00' }}" min="0" step="0.01" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">
+                                        Descripción
+                                    </label>
+
+                                    <textarea name="descripcion" class="fctrl" rows="3" placeholder="Descripción del artículo">{{ utileria.descripcion|default:'' }}</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-check">
+
+                                        <input type="checkbox" name="activo" class="form-check-input" id="activoUtileria" {% if not utileria or utileria.activo %}checked{% endif %}>
+
+                                        <label class="form-check-label" for="activoUtileria">
+                                            Artículo activo
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-center gap-2">
+
+                                    <button type="submit" class="btn-red">
+                                        <i class="fas fa-save"></i>
+                                        Guardar utilería
+                                    </button>
+
+                                    <a href="/utileria/" class="btn btn-secondary">
+                                        <i class="fas fa-times"></i>
+                                        Cancelar
+                                    </a>
+
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

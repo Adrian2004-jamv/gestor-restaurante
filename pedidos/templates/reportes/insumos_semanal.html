@@ -1,0 +1,180 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<style>
+    @media print {
+        nav,
+        .topbar,
+        footer,
+        .no-imprimir,
+        #btt {
+            display: none !important;
+        }
+
+        .card {
+            box-shadow: none !important;
+        }
+
+        .py-5 {
+            padding: 0 !important;
+        }
+    }
+</style>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <div>
+                <span class="slbl">Planificación de compras</span>
+
+                <h2 class="stitle text-start mb-0">
+                    Insumos <span>semanales</span>
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Del {{ inicio_semana|date:"d/m/Y" }} al {{ fin_semana|date:"d/m/Y" }}
+                </p>
+            </div>
+
+            <button type="button" class="btn btn-dark no-imprimir" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                Imprimir
+            </button>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 mb-4 no-imprimir">
+            <div class="card-body">
+
+                <form action="/reporteInsumosSemanal/" method="get" class="row g-2 align-items-end">
+
+                    <div class="col-md-8">
+                        <label class="flbl">
+                            Seleccione cualquier día de la semana
+                        </label>
+
+                        <input type="date" name="fecha" class="form-control" value="{{ fecha_consulta }}">
+                    </div>
+
+                    <div class="col-md-4">
+                        <button type="submit" class="btn-red">
+                            <i class="fas fa-search"></i>
+                            Consultar semana
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4 mb-4">
+            <div class="card-body p-4">
+
+                <h4 class="mb-3">
+                    Eventos considerados
+                </h4>
+
+                <div class="row g-3">
+                    {% for evento in eventos %}
+                        <div class="col-md-6 col-xl-4">
+                            <div class="border rounded-3 p-3 h-100">
+
+                                <strong>
+                                    {{ evento.nombre_evento }}
+                                </strong>
+
+                                <small class="d-block text-muted">
+                                    {{ evento.fecha_inicio|date:"d/m/Y H:i" }}
+                                </small>
+
+                                <small class="d-block">
+                                    {{ evento.menu.nombre }} · {{ evento.numero_personas }} personas
+                                </small>
+
+                            </div>
+                        </div>
+
+                    {% empty %}
+                        <div class="col-12">
+                            <div class="alert alert-info mb-0">
+                                No existen eventos confirmados o en preparación durante esta semana.
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Insumo</th>
+                                <th>Unidad</th>
+                                <th>Requerido</th>
+                                <th>Stock actual</th>
+                                <th>Comprar</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for resultado in resultados %}
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            {{ resultado.insumo.nombre }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ resultado.insumo.get_unidad_medida_display }}
+                                    </td>
+
+                                    <td>
+                                        {{ resultado.cantidad_requerida|floatformat:3 }}
+                                    </td>
+
+                                    <td>
+                                        {{ resultado.stock|floatformat:3 }}
+                                    </td>
+
+                                    <td class="fw-bold {% if resultado.cantidad_comprar > 0 %}text-danger{% else %}text-success{% endif %}">
+                                        {{ resultado.cantidad_comprar|floatformat:3 }}
+                                    </td>
+
+                                    <td>
+                                        {% if resultado.cantidad_comprar > 0 %}
+                                            <span class="badge bg-danger">
+                                                Comprar
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-success">
+                                                Stock suficiente
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                            {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-5">
+                                        No existen requerimientos para la semana seleccionada.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

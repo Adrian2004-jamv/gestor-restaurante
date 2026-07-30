@@ -1,0 +1,190 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.css">
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Costeo de recetas</span>
+                <h2 class="stitle text-start mb-0">Receta de <span>{{ plato.nombre }}</span></h2>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap"><button type="button" id="iniciar_guia" class="btn btn-dark"><i class="fas fa-route"></i> Iniciar guía</button><a href="/platos/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a platos</a></div>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4" id="paso_formulario_receta">
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4">
+
+                        <h4 class="mb-4"><i class="fas fa-plus-circle text-danger me-2"></i>Agregar ingrediente</h4>
+
+                        <form id="form_receta" action="/guardarIngredienteReceta/" method="post">
+                            {% csrf_token %}
+
+                            <input type="hidden" name="plato_id" value="{{ plato.id }}">
+
+                            <div class="mb-3">
+                                <label class="flbl">Insumo</label>
+                                <select name="insumo_id" class="fctrl" required>
+                                    <option value="">Seleccione un insumo</option>
+
+                                    {% for insumo in insumos %}
+                                        <option value="{{ insumo.id }}">{{ insumo.nombre }} - {{ insumo.get_unidad_medida_display }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="flbl">Cantidad utilizada</label>
+                                <input type="number" name="cantidad" class="fctrl" min="0.001" step="0.001" placeholder="Ejemplo: 0.250" required>
+                            </div>
+
+                            <div class="alert alert-light border">
+                                <small><i class="fas fa-info-circle text-primary me-1"></i>La cantidad debe registrarse usando la unidad de medida del insumo.</small>
+                            </div>
+
+                            <button type="submit" class="btn-red w-100 justify-content-center"><i class="fas fa-plus"></i> Agregar ingrediente</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+
+                <div class="card border-0 shadow-lg rounded-4 mb-4" id="paso_ingredientes_receta">
+                    <div class="card-body p-4">
+
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                            <div>
+                                <h4 class="mb-1"><i class="fas fa-list text-danger me-2"></i>Ingredientes de la receta</h4>
+                                <p class="text-muted mb-0">Cantidades necesarias para preparar una porción.</p>
+                            </div>
+
+                            <span class="badge bg-dark fs-6">{{ ingredientes.count }} ingrediente{{ ingredientes.count|pluralize }}</span>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Insumo</th>
+                                        <th>Cantidad</th>
+                                        <th>Unidad</th>
+                                        <th>Costo unitario</th>
+                                        <th>Subtotal</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {% for ingrediente in ingredientes %}
+                                        <tr>
+                                            <td><strong>{{ ingrediente.insumo.nombre }}</strong></td>
+                                            <td>{{ ingrediente.cantidad|floatformat:3 }}</td>
+                                            <td>{{ ingrediente.insumo.get_unidad_medida_display }}</td>
+                                            <td>${{ ingrediente.insumo.costo_unitario|floatformat:2 }}</td>
+                                            <td><strong class="text-success">${{ ingrediente.subtotal|floatformat:2 }}</strong></td>
+
+                                            <td>
+                                                <form action="/eliminarIngredienteReceta/{{ ingrediente.id }}/" method="post" onsubmit="return confirm('¿Está seguro de quitar este ingrediente de la receta?');">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar ingrediente"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="6" class="text-center py-5">
+                                                <i class="fas fa-bowl-food fa-3x text-muted mb-3"></i>
+                                                <p class="mb-1 fw-semibold">La receta todavía no tiene ingredientes.</p>
+                                                <small class="text-muted">Agrega un insumo utilizando el formulario.</small>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-lg rounded-4" id="paso_resumen_costeo">
+                    <div class="card-body p-4">
+
+                        <h4 class="mb-4"><i class="fas fa-calculator text-danger me-2"></i>Resumen del costeo</h4>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <div class="border rounded-4 p-3 h-100">
+                                    <small class="text-muted d-block mb-1">Costo total de la receta</small>
+                                    <h3 class="mb-0 text-danger">${{ plato.costo_receta|floatformat:2 }}</h3>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="border rounded-4 p-3 h-100">
+                                    <small class="text-muted d-block mb-1">Precio de venta</small>
+                                    <h3 class="mb-0">${{ plato.precio_venta|floatformat:2 }}</h3>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="border rounded-4 p-3 h-100">
+                                    <small class="text-muted d-block mb-1">Margen de contribución</small>
+                                    <h3 class="mb-0 text-success">${{ plato.margen_contribucion|floatformat:2 }}</h3>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="border rounded-4 p-3 h-100">
+                                    <small class="text-muted d-block mb-1">Porcentaje de margen</small>
+                                    <h3 class="mb-0 text-primary">{{ plato.porcentaje_margen|floatformat:2 }}%</h3>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {% if plato.costo_receta > plato.precio_venta %}
+                            <div class="alert alert-danger mt-4 mb-0"><i class="fas fa-exclamation-triangle me-2"></i>El costo de la receta supera el precio de venta.</div>
+                        {% elif ingredientes %}
+                            <div class="alert alert-success mt-4 mb-0"><i class="fas fa-check-circle me-2"></i>El plato genera un margen de contribución positivo.</div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/driver.js@latest/dist/driver.js.iife.js"></script>
+<script>
+document.getElementById("iniciar_guia").addEventListener("click",function(){
+    const driver=window.driver.js.driver;
+    const recorrido=driver({showProgress:true,nextBtnText:"Siguiente",prevBtnText:"Anterior",doneBtnText:"Finalizar",steps:[
+        {element:"#paso_formulario_receta",popover:{title:"Agregar ingredientes",description:"Seleccione un insumo e indique la cantidad necesaria para preparar una porción del plato."}},
+        {element:"#paso_ingredientes_receta",popover:{title:"Detalle de la receta",description:"Aquí se muestran los ingredientes registrados, sus costos unitarios y el subtotal de cada uno."}},
+        {element:"#paso_resumen_costeo",popover:{title:"Resultado del costeo",description:"El sistema calcula automáticamente el costo total, el margen de contribución y el porcentaje de margen."}}
+    ]});
+    recorrido.drive();
+});
+</script>
+
+{% endblock %}

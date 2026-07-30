@@ -1,0 +1,323 @@
+[
+{
+  "model": "pedidos.cliente",
+  "pk": 1,
+  "fields": {
+    "tipo": "PERSONA",
+    "nombre": "Jair Adrian Medina Velasco",
+    "identificacion": "1550165631",
+    "telefono": "0997253413",
+    "correo": "laceter63@gmail.com",
+    "direccion": "Alaquez, Latacunga",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 2,
+  "fields": {
+    "tipo": "PERSONA",
+    "nombre": "Jair Adrian Medina Velasco",
+    "identificacion": "1252335378",
+    "telefono": "0987654321",
+    "correo": "laceter63@gmail.com",
+    "direccion": "Alaquez, Latacunga",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 3,
+  "fields": {
+    "tipo": "PERSONA",
+    "nombre": "Maria Torres",
+    "identificacion": "0503456789",
+    "telefono": "0991112233",
+    "correo": "maria.torres@correo.com",
+    "direccion": "Latacunga, Cotopaxi",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1,
+  "fields": {
+    "nombre": "asdasd",
+    "unidad_medida": "KG",
+    "costo_unitario": "10.00",
+    "stock_actual": "20.00",
+    "stock_minimo": "5.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 2,
+  "fields": {
+    "nombre": "Pan artesanal",
+    "unidad_medida": "UND",
+    "costo_unitario": "0.30",
+    "stock_actual": "100.00",
+    "stock_minimo": "20.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1,
+  "fields": {
+    "nombre": "asdasd",
+    "descripcion": "asda",
+    "tiempo_menu": "ENTRADA",
+    "precio_venta": "21.00",
+    "tiempo_preparacion": 15,
+    "imagen": "platos/WhatsApp_Image_2026-07-18_at_10.47.50.jpeg",
+    "tecla_rapida": 9,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 2,
+  "fields": {
+    "nombre": "Bruschetta de tomate",
+    "descripcion": "Pan artesanal con tomate, ajo y aceite.",
+    "tiempo_menu": "ENTRADA",
+    "precio_venta": "4.50",
+    "tiempo_preparacion": 12,
+    "imagen": "",
+    "tecla_rapida": 1,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1,
+  "fields": {
+    "plato": 1,
+    "insumo": 1,
+    "cantidad": "0.004"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 2,
+  "fields": {
+    "plato": 2,
+    "insumo": 2,
+    "cantidad": "2.000"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1,
+  "fields": {
+    "nombre": "asda",
+    "descripcion": "asda",
+    "precio_por_persona": "23.00",
+    "activo": false,
+    "fecha_creacion": "2026-07-26T19:15:16.968Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 2,
+  "fields": {
+    "nombre": "adad",
+    "descripcion": "asd",
+    "precio_por_persona": "2.00",
+    "activo": true,
+    "fecha_creacion": "2026-07-26T19:15:33.807Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 3,
+  "fields": {
+    "nombre": "Menu Ejecutivo",
+    "descripcion": "Entrada, plato principal, acompañamiento, postre y bebida.",
+    "precio_por_persona": "18.00",
+    "activo": true,
+    "fecha_creacion": "2026-07-28T22:14:23Z"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 5,
+  "fields": {
+    "menu": 2,
+    "plato": 1,
+    "tiempo_menu": "ENTRADA",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 8,
+  "fields": {
+    "menu": 3,
+    "plato": 2,
+    "tiempo_menu": "ENTRADA",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 9,
+  "fields": {
+    "menu": 3,
+    "plato": 1,
+    "tiempo_menu": "ENTRADA",
+    "orden": 2,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1,
+  "fields": {
+    "cliente": 1,
+    "menu": 2,
+    "nombre_evento": "asdasd",
+    "tipo_servicio": "BODA",
+    "fecha_inicio": "2026-07-02T02:12:00Z",
+    "fecha_fin": "2026-07-03T02:03:00Z",
+    "direccion": "asda",
+    "numero_personas": 2,
+    "estado": "COTIZADO",
+    "total_contratado": "10.00",
+    "anticipo": "10.00",
+    "observaciones": "asd",
+    "fecha_registro": "2026-07-26T19:16:49.976Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 2,
+  "fields": {
+    "cliente": 3,
+    "menu": 3,
+    "nombre_evento": "Boda",
+    "tipo_servicio": "BODA",
+    "fecha_inicio": "2026-07-28T23:00:00Z",
+    "fecha_fin": "2026-07-31T11:00:00Z",
+    "direccion": "asdasd",
+    "numero_personas": 20,
+    "estado": "CONFIRMADO",
+    "total_contratado": "2000.00",
+    "anticipo": "500.00",
+    "observaciones": "asda",
+    "fecha_registro": "2026-07-28T23:11:10.642Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 3,
+  "fields": {
+    "cliente": 3,
+    "menu": 3,
+    "nombre_evento": "asdasd",
+    "tipo_servicio": "CUMPLEANOS",
+    "fecha_inicio": "2026-07-27T17:00:00Z",
+    "fecha_fin": "2026-07-28T23:00:00Z",
+    "direccion": "asdas",
+    "numero_personas": 10,
+    "estado": "CONFIRMADO",
+    "total_contratado": "100.00",
+    "anticipo": "50.00",
+    "observaciones": "asda",
+    "fecha_registro": "2026-07-28T23:15:15.906Z"
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1,
+  "fields": {
+    "codigo": "CMD-24E7C5DF",
+    "evento": 1,
+    "numero_mesa": 1,
+    "estado": "DESPACHADA",
+    "observaciones": "asdasad",
+    "fecha_creacion": "2026-07-28T00:56:49.821Z",
+    "fecha_despacho": "2026-07-28T00:57:44.691Z"
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 3,
+  "fields": {
+    "codigo": "CMD-B18FFD61",
+    "evento": 1,
+    "numero_mesa": 1,
+    "estado": "PENDIENTE",
+    "observaciones": "zxczxc",
+    "fecha_creacion": "2026-07-28T22:22:57.652Z",
+    "fecha_despacho": null
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 4,
+  "fields": {
+    "codigo": "CMD-841C5C66",
+    "evento": 2,
+    "numero_mesa": 1,
+    "estado": "PREPARANDO",
+    "observaciones": "",
+    "fecha_creacion": "2026-07-28T23:14:14.463Z",
+    "fecha_despacho": null
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 1,
+  "fields": {
+    "comanda": 1,
+    "plato": 1,
+    "cantidad": 1,
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 2,
+  "fields": {
+    "comanda": 3,
+    "plato": 2,
+    "cantidad": 1,
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 3,
+  "fields": {
+    "comanda": 3,
+    "plato": 1,
+    "cantidad": 1,
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 4,
+  "fields": {
+    "comanda": 4,
+    "plato": 2,
+    "cantidad": 4,
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 5,
+  "fields": {
+    "comanda": 4,
+    "plato": 1,
+    "cantidad": 4,
+    "observaciones": ""
+  }
+}
+]

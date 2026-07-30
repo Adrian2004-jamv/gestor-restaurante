@@ -1,0 +1,97 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Personal de cocina</span>
+
+                <h2 class="stitle text-start mb-0">
+                    Cocineros <span>registrados</span>
+                </h2>
+            </div>
+
+            <a href="/nuevoCocinero/" class="btn-red">
+                <i class="fas fa-plus"></i>
+                Nuevo cocinero
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nombres</th>
+                                <th>Identificación</th>
+                                <th>Teléfono</th>
+                                <th>Especialidad</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for cocinero in cocineros %}
+                            <tr>
+                                <td>
+                                    <strong>{{ cocinero.nombres }}</strong>
+                                </td>
+
+                                <td>
+                                    {{ cocinero.identificacion }}
+                                </td>
+
+                                <td>
+                                    {{ cocinero.telefono|default:"Sin teléfono" }}
+                                </td>
+
+                                <td>
+                                    {{ cocinero.especialidad|default:"General" }}
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-success">
+                                        Activo
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <a href="/editarCocinero/{{ cocinero.id }}/" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <form action="/eliminarCocinero/{{ cocinero.id }}/" method="post" onsubmit="return confirm('¿Está seguro de desactivar este cocinero?');">
+                                            {% csrf_token %}
+
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    No existen cocineros registrados.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

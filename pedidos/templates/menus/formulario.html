@@ -1,0 +1,81 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="slbl">Catálogo de catering</span>
+
+            {% if menu %}
+                <h2 class="stitle">Editar <span>menú</span></h2>
+            {% else %}
+                <h2 class="stitle">Registrar <span>menú</span></h2>
+            {% endif %}
+
+            <div class="sline"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4 p-lg-5">
+
+                        {% if menu %}
+                            <form id="form_menu" action="/actualizarMenu/{{ menu.id }}/" method="post">
+                        {% else %}
+                            <form id="form_menu" action="/guardarMenu/" method="post">
+                        {% endif %}
+
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+
+                                <div class="col-md-7">
+                                    <label class="flbl">Nombre del menú</label>
+                                    <input type="text" name="nombre" class="fctrl" value="{{ menu.nombre|default:'' }}" placeholder="Ingrese el nombre del menú" required>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="flbl">Precio por persona</label>
+                                    <input type="number" name="precio_por_persona" class="fctrl" value="{{ menu.precio_por_persona|default:'' }}" step="0.01" min="0" placeholder="0.00" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">Descripción</label>
+                                    <textarea name="descripcion" class="fctrl" rows="4" placeholder="Describa los platos y características del menú">{{ menu.descripcion|default:'' }}</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input type="checkbox" name="activo" class="form-check-input" id="activoMenu" {% if not menu or menu.activo %}checked{% endif %}>
+                                        <label class="form-check-label" for="activoMenu">Menú disponible</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-center gap-2 flex-wrap">
+                                    <button type="submit" class="btn-red"><i class="fas fa-save"></i> Guardar menú</button>
+                                    <a href="/menus/" class="btn btn-secondary px-4"><i class="fas fa-times"></i> Cancelar</a>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

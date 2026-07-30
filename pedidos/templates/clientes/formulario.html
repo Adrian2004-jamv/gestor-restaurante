@@ -1,0 +1,100 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="slbl">Gestión de clientes</span>
+
+            {% if cliente %}
+                <h2 class="stitle">Editar <span>cliente</span></h2>
+            {% else %}
+                <h2 class="stitle">Registrar <span>cliente</span></h2>
+            {% endif %}
+
+            <div class="sline"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4 p-lg-5">
+
+                        {% if cliente %}
+                            <form id="form_cliente" action="/actualizarCliente/{{ cliente.id }}/" method="post">
+                        {% else %}
+                            <form id="form_cliente" action="/guardar_Cliente/" method="post">
+                        {% endif %}
+
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Tipo de cliente</label>
+                                    <select name="tipo" class="fctrl" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="PERSONA" {% if cliente.tipo == "PERSONA" %}selected{% endif %}>Persona natural</option>
+                                        <option value="EMPRESA" {% if cliente.tipo == "EMPRESA" %}selected{% endif %}>Empresa</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Nombre completo</label>
+                                    <input type="text" name="nombre" class="fctrl" value="{{ cliente.nombre|default:'' }}" placeholder="Ingrese el nombre completo" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Cédula o RUC</label>
+                                    <input type="text" name="identificacion" class="fctrl" value="{{ cliente.identificacion|default:'' }}" placeholder="Ingrese la identificación" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Teléfono</label>
+                                    <input type="text" name="telefono" class="fctrl" value="{{ cliente.telefono|default:'' }}" placeholder="Ingrese el teléfono" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">Correo electrónico</label>
+                                    <input type="email" name="correo" class="fctrl" value="{{ cliente.correo|default:'' }}" placeholder="correo@ejemplo.com">
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">Dirección</label>
+                                    <textarea name="direccion" class="fctrl" rows="3" placeholder="Ingrese la dirección">{{ cliente.direccion|default:'' }}</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input type="checkbox" name="activo" class="form-check-input" id="activoCliente" {% if not cliente or cliente.activo %}checked{% endif %}>
+                                        <label class="form-check-label" for="activoCliente">Cliente activo</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-center gap-2 flex-wrap">
+                                    <button type="submit" class="btn-red"><i class="fas fa-save"></i> Guardar cliente</button>
+                                    <a href="/clientes/" class="btn btn-secondary px-4"><i class="fas fa-times"></i> Cancelar</a>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

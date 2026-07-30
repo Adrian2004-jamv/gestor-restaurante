@@ -1,0 +1,76 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+            <div>
+                <span class="slbl">Administración</span>
+                <h2 class="stitle text-start mb-0">Listado de <span>clientes</span></h2>
+            </div>
+
+            <a href="/nuevoCliente/" class="btn-red"><i class="fas fa-plus"></i> Nuevo cliente</a>
+
+        </div>
+
+        <div class="fcard">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Identificación</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for cliente in clientes %}
+
+                            <tr>
+                                <td>{{ cliente.nombre }}</td>
+                                <td>{{ cliente.get_tipo_display }}</td>
+                                <td>{{ cliente.identificacion }}</td>
+                                <td>{{ cliente.telefono }}</td>
+                                <td>{{ cliente.correo|default:"Sin correo" }}</td>
+
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <a href="/editarCliente/{{ cliente.id }}/" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></a>
+
+                                        <form action="/eliminarCliente/{{ cliente.id }}/" method="post" onsubmit="return confirm('¿Está seguro de eliminar este cliente?');">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+                                <td colspan="6" class="text-center py-5">No existen clientes registrados.</td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}

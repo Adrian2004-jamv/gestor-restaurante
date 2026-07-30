@@ -1,0 +1,190 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Recursos del evento</span>
+
+                <h2 class="stitle text-start mb-0">
+                    Utilería para <span>{{ evento.nombre_evento }}</span>
+                </h2>
+            </div>
+
+            <a href="/eventos/" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Volver
+            </a>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4">
+
+                        <h4 class="mb-4">
+                            <i class="fas fa-plus-circle text-danger me-2"></i>
+                            Asignar artículo
+                        </h4>
+
+                        <form action="/guardarUtileriaEvento/{{ evento.id }}/" method="post">
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                <label class="flbl">
+                                    Utilería
+                                </label>
+
+                                <select name="utileria_id" class="fctrl" required>
+                                    <option value="">
+                                        Seleccione
+                                    </option>
+
+                                    {% for utileria in utilerias %}
+                                        <option value="{{ utileria.id }}">
+                                            {{ utileria.nombre }} - disponibles: {{ utileria.disponible }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="flbl">
+                                    Cantidad
+                                </label>
+
+                                <input type="number" name="cantidad" class="fctrl" min="1" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="flbl">
+                                    Estado
+                                </label>
+
+                                <select name="estado" class="fctrl" required>
+                                    <option value="RESERVADA">
+                                        Reservada
+                                    </option>
+
+                                    <option value="DESPACHADA">
+                                        Despachada
+                                    </option>
+
+                                    <option value="DEVUELTA">
+                                        Devuelta
+                                    </option>
+
+                                    <option value="DANADA">
+                                        Dañada
+                                    </option>
+
+                                    <option value="PERDIDA">
+                                        Perdida
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="flbl">
+                                    Cantidad devuelta
+                                </label>
+
+                                <input type="number" name="cantidad_devuelta" class="fctrl" value="0" min="0">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="flbl">
+                                    Observaciones
+                                </label>
+
+                                <textarea name="observaciones" class="fctrl" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-red w-100 justify-content-center">
+                                <i class="fas fa-save"></i>
+                                Guardar asignación
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4">
+
+                        <h4 class="mb-4">
+                            <i class="fas fa-chair text-danger me-2"></i>
+                            Utilería asignada
+                        </h4>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Artículo</th>
+                                        <th>Cantidad</th>
+                                        <th>Estado</th>
+                                        <th>Devuelta</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for asignacion in asignaciones %}
+                                        <tr>
+                                            <td>
+                                                <strong>
+                                                    {{ asignacion.utileria.nombre }}
+                                                </strong>
+                                            </td>
+
+                                            <td>
+                                                {{ asignacion.cantidad }}
+                                            </td>
+
+                                            <td>
+                                                {{ asignacion.get_estado_display }}
+                                            </td>
+
+                                            <td>
+                                                {{ asignacion.cantidad_devuelta }}
+                                            </td>
+
+                                            <td>
+                                                <form action="/eliminarUtileriaEvento/{{ asignacion.id }}/" method="post" onsubmit="return confirm('¿Quitar este artículo del evento?');">
+                                                    {% csrf_token %}
+
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="5" class="text-center py-5">
+                                                No existe utilería asignada.
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

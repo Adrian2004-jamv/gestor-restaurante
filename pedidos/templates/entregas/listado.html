@@ -1,0 +1,110 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Logística de eventos</span>
+
+                <h2 class="stitle text-start mb-0">
+                    Entregas <span>programadas</span>
+                </h2>
+            </div>
+
+            <a href="/nuevaEntrega/" class="btn-red">
+                <i class="fas fa-plus"></i>
+                Nueva entrega
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Evento</th>
+                                <th>Salida</th>
+                                <th>Dirección</th>
+                                <th>Vehículo</th>
+                                <th>Responsable</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for entrega in entregas %}
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            {{ entrega.evento.nombre_evento }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ entrega.fecha_salida|date:"d/m/Y H:i" }}
+                                    </td>
+
+                                    <td>
+                                        {{ entrega.direccion_entrega }}
+                                    </td>
+
+                                    <td>
+                                        {{ entrega.vehiculo|default:"No asignado" }}
+                                    </td>
+
+                                    <td>
+                                        {% if entrega.responsable %}
+                                            {{ entrega.responsable.get_full_name|default:entrega.responsable.username }}
+                                        {% else %}
+                                            Sin responsable
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <span class="badge {% if entrega.estado == 'ENTREGADA' %}bg-success{% elif entrega.estado == 'INCIDENCIA' or entrega.estado == 'CANCELADA' %}bg-danger{% elif entrega.estado == 'EN_RUTA' %}bg-primary{% else %}bg-warning text-dark{% endif %}">
+                                            {{ entrega.get_estado_display }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <div class="d-flex gap-1">
+
+                                            <a href="/editarEntrega/{{ entrega.id }}/" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+
+                                            <form action="/eliminarEntrega/{{ entrega.id }}/" method="post" onsubmit="return confirm('¿Eliminar esta entrega?');">
+                                                {% csrf_token %}
+
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center py-5">
+                                        No existen entregas registradas.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

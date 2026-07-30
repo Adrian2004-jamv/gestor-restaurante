@@ -1,0 +1,118 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="slbl">Catálogo gastronómico</span>
+
+            {% if plato %}
+                <h2 class="stitle">Editar <span>plato</span></h2>
+            {% else %}
+                <h2 class="stitle">Registrar <span>plato</span></h2>
+            {% endif %}
+
+            <div class="sline"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-xl-8">
+
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4 p-lg-5">
+
+                        {% if plato %}
+                            <form id="form_plato" action="/actualizarPlato/{{ plato.id }}/" method="post" enctype="multipart/form-data">
+                        {% else %}
+                            <form id="form_plato" action="/guardarPlato/" method="post" enctype="multipart/form-data">
+                        {% endif %}
+
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Nombre del plato</label>
+                                    <input type="text" name="nombre" class="fctrl" value="{{ plato.nombre|default:'' }}" placeholder="Ingrese el nombre del plato" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Tiempo del menú</label>
+                                    <select name="tiempo_menu" class="fctrl" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="ENTRADA" {% if plato.tiempo_menu == "ENTRADA" %}selected{% endif %}>Entrada</option>
+                                        <option value="PRINCIPAL" {% if plato.tiempo_menu == "PRINCIPAL" %}selected{% endif %}>Plato principal</option>
+                                        <option value="ACOMPANAMIENTO" {% if plato.tiempo_menu == "ACOMPANAMIENTO" %}selected{% endif %}>Acompañamiento</option>
+                                        <option value="POSTRE" {% if plato.tiempo_menu == "POSTRE" %}selected{% endif %}>Postre</option>
+                                        <option value="BEBIDA" {% if plato.tiempo_menu == "BEBIDA" %}selected{% endif %}>Bebida</option>
+                                        <option value="OTRO" {% if plato.tiempo_menu == "OTRO" %}selected{% endif %}>Otro</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">Precio de venta</label>
+                                    <input type="number" name="precio_venta" class="fctrl" value="{{ plato.precio_venta|default:'' }}" step="0.01" min="0" placeholder="0.00" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">Tiempo de preparación</label>
+                                    <input type="number" name="tiempo_preparacion" class="fctrl" value="{{ plato.tiempo_preparacion|default:'15' }}" min="1" placeholder="Minutos" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">Tecla rápida</label>
+                                    <input type="number" name="tecla_rapida" class="fctrl" value="{{ plato.tecla_rapida|default_if_none:'' }}" min="0" max="9" placeholder="0 - 9">
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">Descripción</label>
+                                    <textarea name="descripcion" class="fctrl" rows="4" placeholder="Ingrese la descripción del plato">{{ plato.descripcion|default:'' }}</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">Imagen del plato</label>
+                                    <input type="file" name="imagen" class="fctrl" accept="image/*">
+                                </div>
+
+                                {% if plato.imagen %}
+                                    <div class="col-12">
+                                        <div class="p-3 border rounded-3 bg-light">
+                                            <p class="mb-2 fw-semibold">Imagen actual</p>
+                                            <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}" class="img-fluid rounded-3" style="width:150px;height:120px;object-fit:cover;">
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input type="checkbox" name="activo" class="form-check-input" id="activoPlato" {% if not plato or plato.activo %}checked{% endif %}>
+                                        <label class="form-check-label" for="activoPlato">Plato disponible</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-center gap-2 flex-wrap">
+                                    <button type="submit" class="btn-red"><i class="fas fa-save"></i> Guardar plato</button>
+                                    <a href="/platos/" class="btn btn-secondary px-4"><i class="fas fa-times"></i> Cancelar</a>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

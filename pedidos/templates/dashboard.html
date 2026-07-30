@@ -1,0 +1,590 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<style>
+    .grafico-contenedor {
+        position: relative;
+        width: 100%;
+        height: 350px;
+    }
+
+    .dashboard-enlace {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .dashboard-enlace:hover {
+        color: inherit;
+    }
+</style>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="mb-5">
+            <span class="slbl">Panel administrativo</span>
+
+            <h2 class="stitle text-start">
+                Dashboard de <span>catering</span>
+            </h2>
+
+            <div class="sline lft"></div>
+        </div>
+
+        <div class="row g-4 mb-5">
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/clientes/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-danger-subtle text-danger">
+                            <i class="fas fa-users"></i>
+                        </div>
+
+                        <div>
+                            <h2>{{ total_clientes }}</h2>
+                            <p>Clientes activos</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/eventos/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-warning-subtle text-warning">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+
+                        <div>
+                            <h2>{{ total_eventos }}</h2>
+                            <p>Eventos</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/comandas/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-primary-subtle text-primary">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+
+                        <div>
+                            <h2>{{ comandas_pendientes }}</h2>
+                            <p>Comandas activas</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/entregas/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-success-subtle text-success">
+                            <i class="fas fa-truck"></i>
+                        </div>
+
+                        <div>
+                            <h2>{{ entregas_pendientes }}</h2>
+                            <p>Entregas pendientes</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/cocineros/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-info-subtle text-info">
+                            <i class="fas fa-user"></i>
+                        </div>
+
+                        <div>
+                            <h2>{{ total_cocineros }}</h2>
+                            <p>Cocineros</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/utileria/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-secondary-subtle text-secondary">
+                            <i class="fas fa-chair"></i>
+                        </div>
+
+                        <div>
+                            <h2>{{ total_utileria }}</h2>
+                            <p>Artículos utilería</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/insumos/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-warning-subtle text-warning">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+
+                        <div>
+                            <h2>{{ insumos_bajos }}</h2>
+                            <p>Insumos con stock bajo</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <a href="/eventos/" class="dashboard-enlace">
+                    <div class="dashboard-tarjeta">
+                        <div class="dashboard-icono bg-danger-subtle text-danger">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+
+                        <div>
+                            <h2>${{ saldo_pendiente|floatformat:2 }}</h2>
+                            <p>Saldo pendiente</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="dashboard-panel mb-4">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                <div>
+                    <h4 class="mb-1">
+                        <i class="fas fa-calendar-alt text-danger me-2"></i>
+                        Próximos eventos
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Servicios programados
+                    </p>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a href="/calendarioEventos/" class="btn btn-dark">
+                        <i class="fas fa-calendar"></i>
+                        Calendario
+                    </a>
+
+                    <a href="/nuevoEvento/" class="btn-red">
+                        <i class="fas fa-plus"></i>
+                        Nuevo evento
+                    </a>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Evento</th>
+                            <th>Cliente</th>
+                            <th>Menú</th>
+                            <th>Fecha</th>
+                            <th>Personas</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for evento in proximos_eventos %}
+                            <tr>
+                                <td>
+                                    <strong>
+                                        {{ evento.nombre_evento }}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    {{ evento.cliente.nombre }}
+                                </td>
+
+                                <td>
+                                    {{ evento.menu.nombre }}
+                                </td>
+
+                                <td>
+                                    {{ evento.fecha_inicio|date:"d/m/Y H:i" }}
+                                </td>
+
+                                <td>
+                                    {{ evento.numero_personas }}
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-primary">
+                                        {{ evento.get_estado_display }}
+                                    </span>
+                                </td>
+                            </tr>
+
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    No existen eventos próximos.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-xl-8">
+                <div class="dashboard-panel h-100">
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                        <div>
+                            <h4 class="mb-1">
+                                <i class="fas fa-chart-bar text-success me-2"></i>
+                                Margen de contribución
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                Comparación del costo y margen por plato
+                            </p>
+                        </div>
+
+                        <a href="/reporteMargenes/" class="btn btn-sm btn-dark">
+                            <i class="fas fa-file-alt"></i>
+                            Ver reporte
+                        </a>
+                    </div>
+
+                    <div class="grafico-contenedor">
+                        <canvas id="graficoMargenes"></canvas>
+                    </div>
+
+                    <div id="sinDatosMargenes" class="alert alert-info d-none mb-0">
+                        No existen datos suficientes para generar el gráfico de márgenes.
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="dashboard-panel h-100">
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                        <div>
+                            <h4 class="mb-1">
+                                <i class="fas fa-boxes text-warning me-2"></i>
+                                Control de stock
+                            </h4>
+
+                            <p class="text-muted mb-0">
+                                Insumos que requieren atención
+                            </p>
+                        </div>
+
+                        <a href="/reporteInsumosSemanal/" class="btn btn-sm btn-dark">
+                            <i class="fas fa-shopping-cart"></i>
+                            Compras
+                        </a>
+                    </div>
+
+                    <div class="grafico-contenedor">
+                        <canvas id="graficoStock"></canvas>
+                    </div>
+
+                    <div id="sinDatosStock" class="alert alert-success d-none mb-0">
+                        Todos los insumos tienen stock suficiente.
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-7">
+                <div class="dashboard-panel h-100">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">
+                            <i class="fas fa-chart-line text-success me-2"></i>
+                            Mejores márgenes
+                        </h4>
+
+                        <a href="/reporteMargenes/" class="btn btn-sm btn-dark">
+                            Ver reporte
+                        </a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+
+                            <thead>
+                                <tr>
+                                    <th>Plato</th>
+                                    <th>Costo</th>
+                                    <th>Margen</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for resultado in mejores_margenes %}
+                                    <tr>
+                                        <td>
+                                            {{ resultado.plato.nombre }}
+                                        </td>
+
+                                        <td>
+                                            ${{ resultado.costo|floatformat:2 }}
+                                        </td>
+
+                                        <td class="{% if resultado.margen >= 0 %}text-success{% else %}text-danger{% endif %} fw-bold">
+                                            ${{ resultado.margen|floatformat:2 }}
+                                        </td>
+
+                                        <td>
+                                            {{ resultado.porcentaje|floatformat:1 }}%
+                                        </td>
+                                    </tr>
+
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4" class="text-center py-4">
+                                            Sin datos.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="dashboard-panel h-100">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">
+                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                            Stock bajo
+                        </h4>
+
+                        <a href="/reporteInsumosSemanal/" class="btn btn-sm btn-dark">
+                            Compras
+                        </a>
+                    </div>
+
+                    <div class="list-group list-group-flush">
+                        {% for insumo in stock_bajo %}
+                            <div class="list-group-item px-0 d-flex justify-content-between gap-3">
+                                <span>
+                                    {{ insumo.nombre }}
+                                </span>
+
+                                <strong class="text-danger text-end">
+                                    {{ insumo.stock_actual }}
+                                    {{ insumo.unidad_medida }}
+                                </strong>
+                            </div>
+
+                        {% empty %}
+                            <div class="alert alert-success mb-0">
+                                Todos los insumos tienen stock suficiente.
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const datosMargenes = [
+            {% for resultado in mejores_margenes %}
+                {
+                    plato: "{{ resultado.plato.nombre|escapejs }}",
+                    costo: Number("{{ resultado.costo|default:0|floatformat:'2u' }}"),
+                    margen: Number("{{ resultado.margen|default:0|floatformat:'2u' }}")
+                }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const datosStock = [
+            {% for insumo in stock_bajo %}
+                {
+                    insumo: "{{ insumo.nombre|escapejs }}",
+                    stock: Number("{{ insumo.stock_actual|default:0|floatformat:'3u' }}")
+                }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        const canvasMargenes = document.getElementById("graficoMargenes");
+        const mensajeMargenes = document.getElementById("sinDatosMargenes");
+
+        if (datosMargenes.length > 0) {
+            new Chart(canvasMargenes, {
+                type: "bar",
+
+                data: {
+                    labels: datosMargenes.map(function (resultado) {
+                        return resultado.plato;
+                    }),
+
+                    datasets: [
+                        {
+                            label: "Costo de la receta",
+                            data: datosMargenes.map(function (resultado) {
+                                return resultado.costo;
+                            }),
+                            backgroundColor: "rgba(255, 193, 7, 0.65)",
+                            borderColor: "rgba(255, 193, 7, 1)",
+                            borderWidth: 1,
+                            borderRadius: 6
+                        },
+                        {
+                            label: "Margen de contribución",
+                            data: datosMargenes.map(function (resultado) {
+                                return resultado.margen;
+                            }),
+                            backgroundColor: datosMargenes.map(function (resultado) {
+                                if (resultado.margen >= 0) {
+                                    return "rgba(25, 135, 84, 0.65)";
+                                }
+
+                                return "rgba(220, 53, 69, 0.65)";
+                            }),
+                            borderColor: datosMargenes.map(function (resultado) {
+                                if (resultado.margen >= 0) {
+                                    return "rgba(25, 135, 84, 1)";
+                                }
+
+                                return "rgba(220, 53, 69, 1)";
+                            }),
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    interaction: {
+                        mode: "index",
+                        intersect: false
+                    },
+
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        },
+
+                        tooltip: {
+                            callbacks: {
+                                label: function (contexto) {
+                                    return contexto.dataset.label + ": $" +
+                                        Number(contexto.raw).toFixed(2);
+                                }
+                            }
+                        }
+                    },
+
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+
+                            ticks: {
+                                callback: function (valor) {
+                                    return "$" + valor;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        } else {
+            canvasMargenes.classList.add("d-none");
+            mensajeMargenes.classList.remove("d-none");
+        }
+
+        const canvasStock = document.getElementById("graficoStock");
+        const mensajeStock = document.getElementById("sinDatosStock");
+
+        if (datosStock.length > 0) {
+            new Chart(canvasStock, {
+                type: "bar",
+
+                data: {
+                    labels: datosStock.map(function (insumo) {
+                        return insumo.insumo;
+                    }),
+
+                    datasets: [
+                        {
+                            label: "Stock actual",
+                            data: datosStock.map(function (insumo) {
+                                return insumo.stock;
+                            }),
+                            backgroundColor: "rgba(220, 53, 69, 0.65)",
+                            borderColor: "rgba(220, 53, 69, 1)",
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+
+                options: {
+                    indexAxis: "y",
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+
+                        tooltip: {
+                            callbacks: {
+                                label: function (contexto) {
+                                    return "Stock actual: " + contexto.raw;
+                                }
+                            }
+                        }
+                    },
+
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        } else {
+            canvasStock.classList.add("d-none");
+            mensajeStock.classList.remove("d-none");
+        }
+    });
+</script>
+{% endblock %}

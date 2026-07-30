@@ -1,0 +1,88 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+            <div>
+                <span class="slbl">Catálogo gastronómico</span>
+                <h2 class="stitle text-start mb-0">Platos <span>registrados</span></h2>
+            </div>
+
+            <a href="/nuevoPlato/" class="btn-red"><i class="fas fa-plus"></i> Nuevo plato</a>
+
+        </div>
+
+        <div class="row g-4">
+
+            {% for plato in platos %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="mcard h-100">
+
+                        <div class="mimg">
+
+                            {% if plato.imagen %}
+                                <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}">
+                            {% else %}
+                                <img src="{% static 'img/menu/1.jpg' %}" alt="{{ plato.nombre }}">
+                            {% endif %}
+
+                            <div class="mbdg">{{ plato.get_tiempo_menu_display }}</div>
+
+                        </div>
+
+                        <div class="mbody">
+
+                            <div class="mcat">{{ plato.get_tiempo_menu_display }}</div>
+                            <div class="mtit">{{ plato.nombre }}</div>
+                            <div class="mdesc">{{ plato.descripcion|default:"Sin descripción"|truncatechars:100 }}</div>
+
+                            <p class="mb-1"><strong>Preparación:</strong> {{ plato.tiempo_preparacion }} minutos</p>
+                            <p class="mb-1"><strong>Costo:</strong> ${{ plato.costo_receta|floatformat:2 }}</p>
+                            <p class="mb-3"><strong>Margen:</strong> ${{ plato.margen_contribucion|floatformat:2 }}</p>
+
+                            <div class="mfoot">
+
+                                <div class="mprice">${{ plato.precio_venta|floatformat:2 }}</div>
+
+                                <div class="d-flex gap-1">
+
+                                    <a href="/editarPlato/{{ plato.id }}/" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+
+                                    <form action="/eliminarPlato/{{ plato.id }}/" method="post" onsubmit="return confirm('¿Está seguro de eliminar este plato?');">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                    
+                                    <a href="/costeoPlato/{{ plato.id }}/" class="btn btn-success btn-sm" title="Costear receta"><i class="fas fa-calculator"></i></a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12">
+                    <div class="alert alert-info text-center">No existen platos registrados.</div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

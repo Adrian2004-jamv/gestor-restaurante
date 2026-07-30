@@ -1,0 +1,112 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Asignación de personal</span>
+
+                <h2 class="stitle text-start mb-0">
+                    Cocineros para <span>{{ evento.nombre_evento }}</span>
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Seleccione el personal, rol y horas de trabajo.
+                </p>
+            </div>
+
+            <a href="/eventos/" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Volver
+            </a>
+        </div>
+
+        <form action="/guardarCocinerosEvento/{{ evento.id }}/" method="post">
+            {% csrf_token %}
+
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Asignar</th>
+                                    <th>Cocinero</th>
+                                    <th>Especialidad</th>
+                                    <th>Rol</th>
+                                    <th>Horas</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for cocinero in cocineros %}
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="cocinero_ids" value="{{ cocinero.id }}" class="form-check-input" {% if cocinero.seleccionado %}checked{% endif %}>
+                                        </td>
+
+                                        <td>
+                                            <strong>
+                                                {{ cocinero.nombres }}
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            {{ cocinero.especialidad|default:"General" }}
+                                        </td>
+
+                                        <td>
+                                            <select name="rol_{{ cocinero.id }}" class="form-select">
+                                                <option value="JEFE" {% if cocinero.rol_asignado == "JEFE" %}selected{% endif %}>
+                                                    Chef principal
+                                                </option>
+
+                                                <option value="COCINERO" {% if cocinero.rol_asignado == "COCINERO" %}selected{% endif %}>
+                                                    Cocinero
+                                                </option>
+
+                                                <option value="AYUDANTE" {% if cocinero.rol_asignado == "AYUDANTE" %}selected{% endif %}>
+                                                    Ayudante
+                                                </option>
+
+                                                <option value="PASTELERO" {% if cocinero.rol_asignado == "PASTELERO" %}selected{% endif %}>
+                                                    Pastelero
+                                                </option>
+                                            </select>
+                                        </td>
+
+                                        <td>
+                                            <input type="number" name="horas_{{ cocinero.id }}" class="form-control" value="{{ cocinero.horas_asignadas }}" min="0" step="0.5">
+                                        </td>
+                                    </tr>
+
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center py-5">
+                                            Primero debe registrar cocineros.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn-red">
+                            <i class="fas fa-save"></i>
+                            Guardar asignación
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+{% endblock %}

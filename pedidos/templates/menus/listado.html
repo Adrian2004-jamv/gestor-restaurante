@@ -1,0 +1,89 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+            <div>
+                <span class="slbl">Catálogo de catering</span>
+                <h2 class="stitle text-start mb-0">Menús <span>registrados</span></h2>
+            </div>
+
+            <a href="/nuevoMenu/" class="btn-red"><i class="fas fa-plus"></i> Nuevo menú</a>
+
+        </div>
+
+        <div class="row g-4">
+
+            {% for menu in menus %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="mcard h-100">
+
+                        <div class="mimg">
+
+                            <img src="{% static 'img/menu/2.jpg' %}" alt="{{ menu.nombre }}">
+
+                            {% if menu.activo %}
+                                <div class="mbdg new"><i class="fas fa-check"></i> Disponible</div>
+                            {% else %}
+                                <div class="mbdg hot"><i class="fas fa-times"></i> No disponible</div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mbody">
+
+                            <div class="mcat">Menú de catering</div>
+
+                            <div class="mtit">{{ menu.nombre }}</div>
+
+                            <div class="mdesc">{{ menu.descripcion|default:"Sin descripción"|truncatechars:120 }}</div>
+
+                            <p class="mb-1"><strong>Precio por persona:</strong> ${{ menu.precio_por_persona|floatformat:2 }}</p>
+
+                            <p class="mb-3"><strong>Platos incluidos:</strong> {{ menu.platos.count }}</p>
+
+                            <div class="mfoot">
+
+                                <div class="mprice">${{ menu.precio_por_persona|floatformat:2 }} <small>por persona</small></div>
+
+                                <div class="d-flex gap-1">
+
+                                    <a href="/editarMenu/{{ menu.id }}/" class="btn btn-warning btn-sm" title="Editar menú"><i class="fas fa-edit"></i></a>
+
+                                    <form action="/eliminarMenu/{{ menu.id }}/" method="post" onsubmit="return confirm('¿Está seguro de eliminar este menú?');">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Eliminar menú"><i class="fas fa-trash"></i></button>
+                                    </form>
+
+                                    <a href="/ensamblarMenu/{{ menu.id }}/" class="btn btn-warning btn-sm" title="Ensamblar menú"><i class="fas fa-layer-group"></i></a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12">
+                    <div class="alert alert-info text-center">No existen menús registrados.</div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

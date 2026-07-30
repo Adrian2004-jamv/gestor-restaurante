@@ -1,0 +1,146 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <span class="slbl">Servicios de catering</span>
+
+            {% if evento %}
+                <h2 class="stitle">Editar <span>evento</span></h2>
+            {% else %}
+                <h2 class="stitle">Registrar <span>evento</span></h2>
+            {% endif %}
+
+            <div class="sline"></div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4 p-lg-5">
+
+                        {% if evento %}
+                            <form id="form_evento" action="/actualizarEvento/{{ evento.id }}/" method="post">
+                        {% else %}
+                            <form id="form_evento" action="/guardarEvento/" method="post">
+                        {% endif %}
+
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Nombre del evento</label>
+                                    <input type="text" name="nombre_evento" class="fctrl" value="{{ evento.nombre_evento|default:'' }}" placeholder="Ingrese el nombre del evento" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Tipo de servicio</label>
+                                    <select name="tipo_servicio" class="fctrl" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="BODA" {% if evento.tipo_servicio == "BODA" %}selected{% endif %}>Boda</option>
+                                        <option value="CUMPLEANOS" {% if evento.tipo_servicio == "CUMPLEANOS" %}selected{% endif %}>Cumpleaños</option>
+                                        <option value="EMPRESARIAL" {% if evento.tipo_servicio == "EMPRESARIAL" %}selected{% endif %}>Evento empresarial</option>
+                                        <option value="GRADUACION" {% if evento.tipo_servicio == "GRADUACION" %}selected{% endif %}>Graduación</option>
+                                        <option value="SOCIAL" {% if evento.tipo_servicio == "SOCIAL" %}selected{% endif %}>Evento social</option>
+                                        <option value="OTRO" {% if evento.tipo_servicio == "OTRO" %}selected{% endif %}>Otro</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Cliente</label>
+                                    <select name="cliente_id" class="fctrl" required>
+                                        <option value="">Seleccione un cliente</option>
+
+                                        {% for cliente in clientes %}
+                                            <option value="{{ cliente.id }}" {% if evento.cliente_id == cliente.id %}selected{% endif %}>{{ cliente.nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Menú</label>
+                                    <select name="menu_id" class="fctrl" required>
+                                        <option value="">Seleccione un menú</option>
+
+                                        {% for menu in menus %}
+                                            <option value="{{ menu.id }}" {% if evento.menu_id == menu.id %}selected{% endif %}>{{ menu.nombre }} - ${{ menu.precio_por_persona|floatformat:2 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Fecha de inicio</label>
+                                    <input type="datetime-local" name="fecha_inicio" class="fctrl" value="{{ evento.fecha_inicio|date:'Y-m-d\TH:i' }}" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="flbl">Fecha de finalización</label>
+                                    <input type="datetime-local" name="fecha_fin" class="fctrl" value="{{ evento.fecha_fin|date:'Y-m-d\TH:i' }}" required>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label class="flbl">Dirección</label>
+                                    <input type="text" name="direccion" class="fctrl" value="{{ evento.direccion|default:'' }}" placeholder="Ingrese la dirección del evento" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">Número de personas</label>
+                                    <input type="number" name="numero_personas" class="fctrl" value="{{ evento.numero_personas|default:'' }}" min="1" placeholder="Cantidad de personas" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">Estado</label>
+                                    <select name="estado" class="fctrl" required>
+                                        <option value="COTIZADO" {% if not evento or evento.estado == "COTIZADO" %}selected{% endif %}>Cotizado</option>
+                                        <option value="CONFIRMADO" {% if evento.estado == "CONFIRMADO" %}selected{% endif %}>Confirmado</option>
+                                        <option value="PREPARACION" {% if evento.estado == "PREPARACION" %}selected{% endif %}>En preparación</option>
+                                        <option value="EN_CURSO" {% if evento.estado == "EN_CURSO" %}selected{% endif %}>En curso</option>
+                                        <option value="FINALIZADO" {% if evento.estado == "FINALIZADO" %}selected{% endif %}>Finalizado</option>
+                                        <option value="CANCELADO" {% if evento.estado == "CANCELADO" %}selected{% endif %}>Cancelado</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">Total contratado</label>
+                                    <input type="number" name="total_contratado" class="fctrl" value="{{ evento.total_contratado|default:'0.00' }}" step="0.01" min="0" placeholder="0.00" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="flbl">Anticipo</label>
+                                    <input type="number" name="anticipo" class="fctrl" value="{{ evento.anticipo|default:'0.00' }}" step="0.01" min="0" placeholder="0.00" required>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="flbl">Observaciones</label>
+                                    <textarea name="observaciones" class="fctrl" rows="4" placeholder="Ingrese las observaciones del evento">{{ evento.observaciones|default:'' }}</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-center gap-2 flex-wrap">
+                                    <button type="submit" class="btn-red"><i class="fas fa-save"></i> Guardar evento</button>
+                                    <a href="/eventos/" class="btn btn-secondary px-4"><i class="fas fa-times"></i> Cancelar</a>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

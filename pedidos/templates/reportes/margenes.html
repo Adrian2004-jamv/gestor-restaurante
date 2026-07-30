@@ -1,0 +1,105 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <span class="slbl">Rentabilidad gastronómica</span>
+
+                <h2 class="stitle text-start mb-0">
+                    Margen de <span>contribución</span>
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Comparación entre el precio de venta y el costo de cada receta.
+                </p>
+            </div>
+
+            <button type="button" class="btn btn-dark" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                Imprimir
+            </button>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Plato</th>
+                                <th>Precio</th>
+                                <th>Costo receta</th>
+                                <th>Margen</th>
+                                <th>Porcentaje</th>
+                                <th>Resultado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for resultado in resultados %}
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            {{ resultado.plato.nombre }}
+                                        </strong>
+
+                                        <small class="d-block text-muted">
+                                            {{ resultado.plato.get_tiempo_menu_display }}
+                                        </small>
+                                    </td>
+
+                                    <td>
+                                        ${{ resultado.plato.precio_venta|floatformat:2 }}
+                                    </td>
+
+                                    <td>
+                                        ${{ resultado.costo|floatformat:2 }}
+                                    </td>
+
+                                    <td class="fw-bold {% if resultado.margen >= 0 %}text-success{% else %}text-danger{% endif %}">
+                                        ${{ resultado.margen|floatformat:2 }}
+                                    </td>
+
+                                    <td>
+                                        {{ resultado.porcentaje|floatformat:2 }}%
+                                    </td>
+
+                                    <td>
+                                        {% if resultado.margen > 0 %}
+                                            <span class="badge bg-success">
+                                                Rentable
+                                            </span>
+                                        {% elif resultado.margen == 0 %}
+                                            <span class="badge bg-warning text-dark">
+                                                Sin margen
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-danger">
+                                                Pérdida
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                            {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-5">
+                                        No existen platos registrados.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

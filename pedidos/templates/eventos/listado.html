@@ -1,0 +1,84 @@
+{% extends "plantillaprincipal.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+            <div>
+                <span class="slbl">Servicios contratados</span>
+                <h2 class="stitle text-start mb-0">Eventos de <span>catering</span></h2>
+            </div>
+
+            <a href="/nuevoEvento/" class="btn-red"><i class="fas fa-plus"></i> Nuevo evento</a>
+
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4"><div class="card-body p-4">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Evento</th>
+                            <th>Cliente</th>
+                            <th>Menú</th>
+                            <th>Fecha</th>
+                            <th>Personas</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for evento in eventos %}
+
+                            <tr>
+                                <td>{{ evento.nombre_evento }}</td>
+                                <td>{{ evento.cliente.nombre }}</td>
+                                <td>{{ evento.menu.nombre }}</td>
+                                <td>{{ evento.fecha_inicio|date:"d/m/Y H:i" }}</td>
+                                <td>{{ evento.numero_personas }}</td>
+                                <td>${{ evento.total_contratado|floatformat:2 }}</td>
+                                <td><span class="badge bg-success">{{ evento.get_estado_display }}</span></td>
+
+                                <td>
+                                    <div class="d-flex gap-1">
+
+                                        <a href="/editarEvento/{{ evento.id }}/" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></a>
+                                        <a href="/asignarCocineros/{{ evento.id }}/" class="btn btn-primary btn-sm" title="Asignar cocineros"><i class="fas fa-user"></i></a>
+                                        <a href="/asignarUtileria/{{ evento.id }}/" class="btn btn-info btn-sm" title="Asignar utilería"><i class="fas fa-chair"></i></a>
+                                        <form action="/eliminarEvento/{{ evento.id }}/" method="post" onsubmit="return confirm('¿Está seguro de eliminar este evento?');">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                        </form>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+                                <td colspan="8" class="text-center py-5">No existen eventos registrados.</td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div></div>
+
+    </div>
+</section>
+
+{% endblock %}
