@@ -28,9 +28,9 @@
                     <div class="card-body p-4 p-lg-5">
 
                         {% if cocinero %}
-                            <form id="form_cocinero" action="/actualizarCocinero/{{ cocinero.id }}/" method="post">
+                            <form class="form_validar" id="form_cocinero" action="/actualizarCocinero/{{ cocinero.id }}/" method="post">
                         {% else %}
-                            <form id="form_cocinero" action="/guardarCocinero/" method="post">
+                            <form class="form_validar" id="form_cocinero" action="/guardarCocinero/" method="post">
                         {% endif %}
 
                             {% csrf_token %}

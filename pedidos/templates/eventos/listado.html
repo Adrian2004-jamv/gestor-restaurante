@@ -20,7 +20,7 @@
         <div class="card border-0 shadow-lg rounded-4"><div class="card-body p-4">
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle mb-0 datatable">
 
                     <thead class="table-dark">
                         <tr>
@@ -54,7 +54,7 @@
                                         <a href="/editarEvento/{{ evento.id }}/" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></a>
                                         <a href="/asignarCocineros/{{ evento.id }}/" class="btn btn-primary btn-sm" title="Asignar cocineros"><i class="fas fa-user"></i></a>
                                         <a href="/asignarUtileria/{{ evento.id }}/" class="btn btn-info btn-sm" title="Asignar utilería"><i class="fas fa-chair"></i></a>
-                                        <form action="/eliminarEvento/{{ evento.id }}/" method="post" onsubmit="return confirm('¿Está seguro de eliminar este evento?');">
+                                        <form action="/eliminarEvento/{{ evento.id }}/" method="post" class="form_eliminar" data-mensaje="¿Está seguro de eliminar este evento?">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         </form>

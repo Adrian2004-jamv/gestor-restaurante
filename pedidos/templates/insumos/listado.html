@@ -20,7 +20,7 @@
         <div class="panel-administrativo">
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0 datatable">
 
                     <thead class="table-dark">
                         <tr>
@@ -57,7 +57,7 @@
                                     <div class="d-flex gap-1">
                                         <a href="/editarInsumo/{{ insumo.id }}/" class="btn btn-warning btn-sm" title="Editar insumo"><i class="fas fa-edit"></i></a>
 
-                                        <form action="/eliminarInsumo/{{ insumo.id }}/" method="post" onsubmit="return confirm('¿Está seguro de eliminar este insumo?');">
+                                        <form action="/eliminarInsumo/{{ insumo.id }}/" method="post" class="form_eliminar" data-mensaje="¿Está seguro de eliminar este insumo?">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-danger btn-sm" title="Eliminar insumo"><i class="fas fa-trash"></i></button>
                                         </form>

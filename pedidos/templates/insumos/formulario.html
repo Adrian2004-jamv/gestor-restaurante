@@ -24,9 +24,9 @@
                 <div class="panel-formulario">
 
                     {% if insumo %}
-                        <form id="form_insumo" action="/actualizarInsumo/{{ insumo.id }}/" method="post">
+                        <form class="form_validar" id="form_insumo" action="/actualizarInsumo/{{ insumo.id }}/" method="post">
                     {% else %}
-                        <form id="form_insumo" action="/guardarInsumo/" method="post">
+                        <form class="form_validar" id="form_insumo" action="/guardarInsumo/" method="post">
                     {% endif %}
 
                         {% csrf_token %}

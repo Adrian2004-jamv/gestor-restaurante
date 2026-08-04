@@ -25,9 +25,9 @@
                     <div class="card-body p-4 p-lg-5">
 
                         {% if cliente %}
-                            <form id="form_cliente" action="/actualizarCliente/{{ cliente.id }}/" method="post">
+                            <form class="form_validar" id="form_cliente" action="/actualizarCliente/{{ cliente.id }}/" method="post">
                         {% else %}
-                            <form id="form_cliente" action="/guardar_Cliente/" method="post">
+                            <form class="form_validar" id="form_cliente" action="/guardar_Cliente/" method="post">
                         {% endif %}
 
                             {% csrf_token %}

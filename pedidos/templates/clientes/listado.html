@@ -20,7 +20,7 @@
         <div class="fcard">
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table table-hover align-middle datatable">
 
                     <thead class="table-dark">
                         <tr>
@@ -48,7 +48,7 @@
                                     <div class="d-flex gap-1">
                                         <a href="/editarCliente/{{ cliente.id }}/" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></a>
 
-                                        <form action="/eliminarCliente/{{ cliente.id }}/" method="post" onsubmit="return confirm('¿Está seguro de eliminar este cliente?');">
+                                        <form action="/eliminarCliente/{{ cliente.id }}/" method="post" class="form_eliminar" data-mensaje="¿Está seguro de eliminar este cliente?">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash"></i></button>
                                         </form>

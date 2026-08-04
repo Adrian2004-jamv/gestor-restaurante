@@ -28,9 +28,9 @@
                     <div class="card-body p-4 p-lg-5">
 
                         {% if utileria %}
-                            <form action="/actualizarUtileria/{{ utileria.id }}/" method="post">
+                            <form class="form_validar" action="/actualizarUtileria/{{ utileria.id }}/" method="post">
                         {% else %}
-                            <form action="/guardarUtileria/" method="post">
+                            <form class="form_validar" action="/guardarUtileria/" method="post">
                         {% endif %}
 
                             {% csrf_token %}

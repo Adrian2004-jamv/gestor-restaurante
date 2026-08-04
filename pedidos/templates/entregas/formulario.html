@@ -28,9 +28,9 @@
                     <div class="card-body p-4 p-lg-5">
 
                         {% if entrega %}
-                            <form action="/actualizarEntrega/{{ entrega.id }}/" method="post">
+                            <form class="form_validar" action="/actualizarEntrega/{{ entrega.id }}/" method="post">
                         {% else %}
-                            <form action="/guardarEntrega/" method="post">
+                            <form class="form_validar" action="/guardarEntrega/" method="post">
                         {% endif %}
 
                             {% csrf_token %}

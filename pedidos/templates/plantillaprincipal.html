@@ -21,6 +21,10 @@
       <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}"/>
       <!-- Style CSS -->
       <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+      <!-- DataTables (Bootstrap 5) -->
+      <link rel="stylesheet" href="https://cdn.datatables.net/3.0.1/css/dataTables.bootstrap5.min.css"/>
+      <!-- DataTables Buttons (exportar) -->
+      <link rel="stylesheet" href="https://cdn.datatables.net/buttons/4.0.1/css/buttons.bootstrap5.min.css"/>
    </head>
    <body>
       <!-- ============================================================
@@ -172,5 +176,115 @@
       <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
       <!-- Main js -->
       <script src="{% static 'js/main.js' %}"></script>
+
+      <!-- jQuery Validation -->
+      <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/additional-methods.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/localization/messages_es.min.js"></script>
+
+      <!-- SweetAlert2 -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+      <!-- DataTables + Buttons (Copiar / Excel / CSV / PDF)-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/3.0.1/js/dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/3.0.1/js/dataTables.bootstrap5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/4.0.1/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/4.0.1/js/buttons.bootstrap5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/4.0.1/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/4.0.1/js/buttons.print.min.js"></script>
+
+      <script>
+         
+         $(document).ready(function () {
+            $('table.datatable').each(function () {
+               $(this).find('tbody td[colspan]').closest('tr').remove();
+               $(this).DataTable({
+                  layout: {
+                     topStart: {
+                        buttons: [
+                           { extend: 'copy',  text: 'Copiar', className: 'btn btn-sm btn-secondary', exportOptions: { columns: ':not(.noexport)' } },
+                           { extend: 'excel', text: 'Excel',  className: 'btn btn-sm btn-success',   exportOptions: { columns: ':not(.noexport)' } },
+                           { extend: 'csv',   text: 'CSV',    className: 'btn btn-sm btn-primary',   exportOptions: { columns: ':not(.noexport)' } },
+                           { extend: 'pdf',   text: 'PDF',    className: 'btn btn-sm btn-danger',    exportOptions: { columns: ':not(.noexport)' } }
+                        ]
+                     }
+                  },
+                  language: {
+                     search: "Buscar:",
+                     lengthMenu: "Mostrar _MENU_ registros",
+                     info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                     infoEmpty: "Mostrando 0 a 0 de 0 registros",
+                     infoFiltered: "(filtrado de _MAX_ registros totales)",
+                     zeroRecords: "No se encontraron resultados",
+                     emptyTable: "No hay datos disponibles",
+                     loadingRecords: "Cargando...",
+                     processing: "Procesando...",
+                     paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Último"
+                     }
+                  }
+               });
+            });
+         });
+      </script>
+      <script>
+         $(document).on('submit', 'form.form_eliminar', function (e) {
+
+            e.preventDefault();
+
+            var formulario = this;
+            var mensaje = $(this).data('mensaje');
+
+            Swal.fire({
+               title: '¿Está seguro?',
+               text: mensaje,
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonText: 'Sí, continuar',
+               cancelButtonText: 'Cancelar',
+               confirmButtonColor: '#dc3545',
+               cancelButtonColor: '#6c757d'
+            }).then(function (resultado) {
+               if (resultado.isConfirmed) {
+                  formulario.submit();
+               }
+            });
+
+         });
+         $(document).ready(function () {
+
+            $('form.form_validar').each(function () {
+
+               $(this).validate({
+                  errorClass: 'text-danger small',
+                  errorElement: 'div',
+                  highlight: function (elemento) {
+                     $(elemento).addClass('is-invalid');
+                  },
+                  unhighlight: function (elemento) {
+                     $(elemento).removeClass('is-invalid');
+                  },
+                  invalidHandler: function () {
+                     Swal.fire({
+                        icon: 'error',
+                        title: 'Datos incompletos',
+                        text: 'Revise los campos marcados en rojo.',
+                        confirmButtonColor: '#dc3545'
+                     });
+                  }
+               });
+
+            });
+
+         });
+      </script>
+      {% block scripts %}
+      {% endblock %}
    </body>
 </html>

@@ -25,9 +25,9 @@
                     <div class="card-body p-4 p-lg-5">
 
                         {% if plato %}
-                            <form id="form_plato" action="/actualizarPlato/{{ plato.id }}/" method="post" enctype="multipart/form-data">
+                            <form class="form_validar" id="form_plato" action="/actualizarPlato/{{ plato.id }}/" method="post" enctype="multipart/form-data">
                         {% else %}
-                            <form id="form_plato" action="/guardarPlato/" method="post" enctype="multipart/form-data">
+                            <form class="form_validar" id="form_plato" action="/guardarPlato/" method="post" enctype="multipart/form-data">
                         {% endif %}
 
                             {% csrf_token %}

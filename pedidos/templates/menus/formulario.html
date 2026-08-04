@@ -25,9 +25,9 @@
                     <div class="card-body p-4 p-lg-5">
 
                         {% if menu %}
-                            <form id="form_menu" action="/actualizarMenu/{{ menu.id }}/" method="post">
+                            <form class="form_validar" id="form_menu" action="/actualizarMenu/{{ menu.id }}/" method="post">
                         {% else %}
-                            <form id="form_menu" action="/guardarMenu/" method="post">
+                            <form class="form_validar" id="form_menu" action="/guardarMenu/" method="post">
                         {% endif %}
 
                             {% csrf_token %}
