@@ -1,152 +1,600 @@
 [
 {
   "model": "pedidos.cliente",
-  "pk": 1,
+  "pk": 1001,
   "fields": {
     "tipo": "PERSONA",
-    "nombre": "Jair Adrian Medina Velasco",
-    "identificacion": "1550165631",
-    "telefono": "0997253413",
-    "correo": "laceter63@gmail.com",
-    "direccion": "Alaquez, Latacunga",
+    "nombre": "María Fernanda Cabrera",
+    "identificacion": "0102030401",
+    "telefono": "0987654101",
+    "correo": "mcabrera@correo.com",
+    "direccion": "Av. Loja 4-52, Cuenca",
     "activo": true
   }
 },
 {
   "model": "pedidos.cliente",
-  "pk": 2,
+  "pk": 1002,
   "fields": {
     "tipo": "PERSONA",
-    "nombre": "Jair Adrian Medina Velasco",
-    "identificacion": "1252335378",
-    "telefono": "0987654321",
-    "correo": "laceter63@gmail.com",
-    "direccion": "Alaquez, Latacunga",
+    "nombre": "Juan Carlos Peralta",
+    "identificacion": "0102030402",
+    "telefono": "0987654102",
+    "correo": "jperalta@correo.com",
+    "direccion": "Calle Larga 7-18, Cuenca",
     "activo": true
   }
 },
 {
   "model": "pedidos.cliente",
-  "pk": 3,
+  "pk": 1003,
+  "fields": {
+    "tipo": "EMPRESA",
+    "nombre": "Textiles del Austro S.A.",
+    "identificacion": "0190030403001",
+    "telefono": "0987654103",
+    "correo": "ventas@textilesaustro.com",
+    "direccion": "Parque Industrial, Cuenca",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 1004,
   "fields": {
     "tipo": "PERSONA",
-    "nombre": "Maria Torres",
-    "identificacion": "0503456789",
-    "telefono": "0991112233",
-    "correo": "maria.torres@correo.com",
-    "direccion": "Latacunga, Cotopaxi",
+    "nombre": "Ana Lucía Vintimilla",
+    "identificacion": "0102030404",
+    "telefono": "0987654104",
+    "correo": "avintimilla@correo.com",
+    "direccion": "Ordóñez Lasso 2-30, Cuenca",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 1005,
+  "fields": {
+    "tipo": "EMPRESA",
+    "nombre": "Constructora Andes Cía. Ltda.",
+    "identificacion": "0190030405001",
+    "telefono": "0987654105",
+    "correo": "gerencia@andes.com",
+    "direccion": "Av. de las Américas 12-40",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 1006,
+  "fields": {
+    "tipo": "PERSONA",
+    "nombre": "Pedro Andrés Sarmiento",
+    "identificacion": "0102030406",
+    "telefono": "0987654106",
+    "correo": "psarmiento@correo.com",
+    "direccion": "Remigio Crespo 3-15",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 1007,
+  "fields": {
+    "tipo": "PERSONA",
+    "nombre": "Sofía Elena Moscoso",
+    "identificacion": "0102030407",
+    "telefono": "0987654107",
+    "correo": "smoscoso@correo.com",
+    "direccion": "Gran Colombia 8-22",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 1008,
+  "fields": {
+    "tipo": "EMPRESA",
+    "nombre": "Clínica Santa Inés",
+    "identificacion": "0190030408001",
+    "telefono": "0987654108",
+    "correo": "eventos@santaines.com",
+    "direccion": "Av. Daniel Córdova 2-67",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 1009,
+  "fields": {
+    "tipo": "PERSONA",
+    "nombre": "Diego Alejandro Ochoa",
+    "identificacion": "0102030409",
+    "telefono": "0987654109",
+    "correo": "dochoa@correo.com",
+    "direccion": "Av. Solano 5-90",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cliente",
+  "pk": 1010,
+  "fields": {
+    "tipo": "PERSONA",
+    "nombre": "Gabriela Isabel Toral",
+    "identificacion": "0102030410",
+    "telefono": "0987654110",
+    "correo": "gtoral@correo.com",
+    "direccion": "Av. 12 de Abril 1-45",
     "activo": true
   }
 },
 {
   "model": "pedidos.insumo",
-  "pk": 1,
+  "pk": 1001,
   "fields": {
-    "nombre": "asdasd",
+    "nombre": "Lomo fino de res",
     "unidad_medida": "KG",
-    "costo_unitario": "10.00",
-    "stock_actual": "20.00",
-    "stock_minimo": "5.00",
+    "costo_unitario": "9.80",
+    "stock_actual": "45.00",
+    "stock_minimo": "10.00",
     "activo": true
   }
 },
 {
   "model": "pedidos.insumo",
-  "pk": 2,
+  "pk": 1002,
   "fields": {
-    "nombre": "Pan artesanal",
-    "unidad_medida": "UND",
-    "costo_unitario": "0.30",
-    "stock_actual": "100.00",
+    "nombre": "Pechuga de pollo",
+    "unidad_medida": "KG",
+    "costo_unitario": "5.40",
+    "stock_actual": "60.00",
+    "stock_minimo": "15.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1003,
+  "fields": {
+    "nombre": "Camarón mediano",
+    "unidad_medida": "KG",
+    "costo_unitario": "11.20",
+    "stock_actual": "30.00",
+    "stock_minimo": "8.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1004,
+  "fields": {
+    "nombre": "Papa chola",
+    "unidad_medida": "KG",
+    "costo_unitario": "0.85",
+    "stock_actual": "120.00",
+    "stock_minimo": "25.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1005,
+  "fields": {
+    "nombre": "Arroz flor",
+    "unidad_medida": "KG",
+    "costo_unitario": "1.10",
+    "stock_actual": "150.00",
+    "stock_minimo": "30.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1006,
+  "fields": {
+    "nombre": "Queso fresco",
+    "unidad_medida": "KG",
+    "costo_unitario": "4.60",
+    "stock_actual": "25.00",
+    "stock_minimo": "6.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1007,
+  "fields": {
+    "nombre": "Aceite de girasol",
+    "unidad_medida": "L",
+    "costo_unitario": "2.30",
+    "stock_actual": "40.00",
+    "stock_minimo": "10.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1008,
+  "fields": {
+    "nombre": "Leche entera",
+    "unidad_medida": "L",
+    "costo_unitario": "0.95",
+    "stock_actual": "80.00",
     "stock_minimo": "20.00",
     "activo": true
   }
 },
 {
-  "model": "pedidos.plato",
-  "pk": 1,
+  "model": "pedidos.insumo",
+  "pk": 1009,
   "fields": {
-    "nombre": "asdasd",
-    "descripcion": "asda",
-    "tiempo_menu": "ENTRADA",
-    "precio_venta": "21.00",
-    "tiempo_preparacion": 15,
-    "imagen": "platos/WhatsApp_Image_2026-07-18_at_10.47.50.jpeg",
-    "tecla_rapida": 9,
+    "nombre": "Harina de trigo",
+    "unidad_medida": "KG",
+    "costo_unitario": "1.05",
+    "stock_actual": "70.00",
+    "stock_minimo": "15.00",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.insumo",
+  "pk": 1010,
+  "fields": {
+    "nombre": "Huevos",
+    "unidad_medida": "UND",
+    "costo_unitario": "0.18",
+    "stock_actual": "300.00",
+    "stock_minimo": "60.00",
     "activo": true
   }
 },
 {
   "model": "pedidos.plato",
-  "pk": 2,
+  "pk": 1001,
   "fields": {
-    "nombre": "Bruschetta de tomate",
-    "descripcion": "Pan artesanal con tomate, ajo y aceite.",
+    "nombre": "Ceviche de camarón",
+    "descripcion": "Camarón cocido con limón, cebolla y cilantro",
     "tiempo_menu": "ENTRADA",
-    "precio_venta": "4.50",
-    "tiempo_preparacion": 12,
+    "precio_venta": "7.50",
+    "tiempo_preparacion": 20,
     "imagen": "",
-    "tecla_rapida": 1,
+    "tecla_rapida": 91,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1002,
+  "fields": {
+    "nombre": "Empanadas de viento",
+    "descripcion": "Empanadas de queso espolvoreadas con azúcar",
+    "tiempo_menu": "ENTRADA",
+    "precio_venta": "3.20",
+    "tiempo_preparacion": 15,
+    "imagen": "",
+    "tecla_rapida": 92,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1003,
+  "fields": {
+    "nombre": "Lomo saltado",
+    "descripcion": "Lomo fino salteado con papas y arroz",
+    "tiempo_menu": "PRINCIPAL",
+    "precio_venta": "11.90",
+    "tiempo_preparacion": 30,
+    "imagen": "",
+    "tecla_rapida": 93,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1004,
+  "fields": {
+    "nombre": "Pollo a la plancha",
+    "descripcion": "Pechuga a la plancha con guarnición",
+    "tiempo_menu": "PRINCIPAL",
+    "precio_venta": "9.50",
+    "tiempo_preparacion": 25,
+    "imagen": "",
+    "tecla_rapida": 94,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1005,
+  "fields": {
+    "nombre": "Seco de pollo",
+    "descripcion": "Pollo guisado con arroz amarillo",
+    "tiempo_menu": "PRINCIPAL",
+    "precio_venta": "8.75",
+    "tiempo_preparacion": 35,
+    "imagen": "",
+    "tecla_rapida": 95,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1006,
+  "fields": {
+    "nombre": "Arroz blanco",
+    "descripcion": "Porción de arroz flor",
+    "tiempo_menu": "ACOMPANAMIENTO",
+    "precio_venta": "1.80",
+    "tiempo_preparacion": 20,
+    "imagen": "",
+    "tecla_rapida": 96,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1007,
+  "fields": {
+    "nombre": "Papas fritas",
+    "descripcion": "Papa chola cortada en bastones",
+    "tiempo_menu": "ACOMPANAMIENTO",
+    "precio_venta": "2.40",
+    "tiempo_preparacion": 15,
+    "imagen": "",
+    "tecla_rapida": 97,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1008,
+  "fields": {
+    "nombre": "Flan de leche",
+    "descripcion": "Flan casero con caramelo",
+    "tiempo_menu": "POSTRE",
+    "precio_venta": "3.50",
+    "tiempo_preparacion": 40,
+    "imagen": "",
+    "tecla_rapida": 98,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1009,
+  "fields": {
+    "nombre": "Torta de chocolate",
+    "descripcion": "Porción de torta húmeda",
+    "tiempo_menu": "POSTRE",
+    "precio_venta": "4.00",
+    "tiempo_preparacion": 50,
+    "imagen": "",
+    "tecla_rapida": 99,
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.plato",
+  "pk": 1010,
+  "fields": {
+    "nombre": "Jugo natural de maracuyá",
+    "descripcion": "Jugo preparado al momento",
+    "tiempo_menu": "BEBIDA",
+    "precio_venta": "2.00",
+    "tiempo_preparacion": 10,
+    "imagen": "",
+    "tecla_rapida": 100,
     "activo": true
   }
 },
 {
   "model": "pedidos.recetadetalle",
-  "pk": 1,
+  "pk": 1001,
   "fields": {
-    "plato": 1,
-    "insumo": 1,
-    "cantidad": "0.004"
+    "plato": 1001,
+    "insumo": 1003,
+    "cantidad": "0.180"
   }
 },
 {
   "model": "pedidos.recetadetalle",
-  "pk": 2,
+  "pk": 1002,
   "fields": {
-    "plato": 2,
-    "insumo": 2,
-    "cantidad": "2.000"
+    "plato": 1002,
+    "insumo": 1006,
+    "cantidad": "0.090"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1003,
+  "fields": {
+    "plato": 1003,
+    "insumo": 1001,
+    "cantidad": "0.220"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1004,
+  "fields": {
+    "plato": 1004,
+    "insumo": 1002,
+    "cantidad": "0.200"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1005,
+  "fields": {
+    "plato": 1005,
+    "insumo": 1002,
+    "cantidad": "0.250"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1006,
+  "fields": {
+    "plato": 1006,
+    "insumo": 1005,
+    "cantidad": "0.150"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1007,
+  "fields": {
+    "plato": 1007,
+    "insumo": 1004,
+    "cantidad": "0.230"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1008,
+  "fields": {
+    "plato": 1008,
+    "insumo": 1008,
+    "cantidad": "0.200"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1009,
+  "fields": {
+    "plato": 1009,
+    "insumo": 1009,
+    "cantidad": "0.120"
+  }
+},
+{
+  "model": "pedidos.recetadetalle",
+  "pk": 1010,
+  "fields": {
+    "plato": 1010,
+    "insumo": 1007,
+    "cantidad": "0.020"
   }
 },
 {
   "model": "pedidos.menu",
-  "pk": 1,
+  "pk": 1001,
   "fields": {
-    "nombre": "asda",
-    "descripcion": "asda",
-    "precio_por_persona": "23.00",
-    "activo": false,
-    "fecha_creacion": "2026-07-26T19:15:16.968Z"
-  }
-},
-{
-  "model": "pedidos.menu",
-  "pk": 2,
-  "fields": {
-    "nombre": "adad",
-    "descripcion": "asd",
-    "precio_por_persona": "2.00",
+    "nombre": "Menú Boda Clásico",
+    "descripcion": "Entrada, principal, acompañamiento y postre",
+    "precio_por_persona": "24.50",
     "activo": true,
-    "fecha_creacion": "2026-07-26T19:15:33.807Z"
+    "fecha_creacion": "2026-01-10T15:00:00Z"
   }
 },
 {
   "model": "pedidos.menu",
-  "pk": 3,
+  "pk": 1002,
   "fields": {
-    "nombre": "Menu Ejecutivo",
-    "descripcion": "Entrada, plato principal, acompañamiento, postre y bebida.",
-    "precio_por_persona": "18.00",
+    "nombre": "Menú Boda Premium",
+    "descripcion": "Servicio completo con bebida incluida",
+    "precio_por_persona": "32.00",
     "activo": true,
-    "fecha_creacion": "2026-07-28T22:14:23Z"
+    "fecha_creacion": "2026-01-15T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1003,
+  "fields": {
+    "nombre": "Menú Empresarial Básico",
+    "descripcion": "Almuerzo ejecutivo para empresas",
+    "precio_por_persona": "14.90",
+    "activo": true,
+    "fecha_creacion": "2026-02-02T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1004,
+  "fields": {
+    "nombre": "Menú Empresarial Plus",
+    "descripcion": "Almuerzo ejecutivo con postre y bebida",
+    "precio_por_persona": "18.75",
+    "activo": true,
+    "fecha_creacion": "2026-02-08T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1005,
+  "fields": {
+    "nombre": "Menú Cumpleaños Infantil",
+    "descripcion": "Opciones ligeras para niños",
+    "precio_por_persona": "9.90",
+    "activo": true,
+    "fecha_creacion": "2026-02-20T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1006,
+  "fields": {
+    "nombre": "Menú Graduación",
+    "descripcion": "Cóctel de entrada y plato fuerte",
+    "precio_por_persona": "21.40",
+    "activo": true,
+    "fecha_creacion": "2026-03-05T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1007,
+  "fields": {
+    "nombre": "Menú Costeño",
+    "descripcion": "Especialidades de mariscos",
+    "precio_por_persona": "27.30",
+    "activo": true,
+    "fecha_creacion": "2026-03-18T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1008,
+  "fields": {
+    "nombre": "Menú Serrano",
+    "descripcion": "Comida tradicional de la sierra",
+    "precio_por_persona": "19.60",
+    "activo": true,
+    "fecha_creacion": "2026-04-01T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1009,
+  "fields": {
+    "nombre": "Menú Vegetariano",
+    "descripcion": "Sin carnes rojas ni blancas",
+    "precio_por_persona": "16.80",
+    "activo": true,
+    "fecha_creacion": "2026-04-14T15:00:00Z"
+  }
+},
+{
+  "model": "pedidos.menu",
+  "pk": 1010,
+  "fields": {
+    "nombre": "Menú Coffee Break",
+    "descripcion": "Bocaditos y bebidas para reuniones",
+    "precio_por_persona": "7.50",
+    "activo": true,
+    "fecha_creacion": "2026-05-06T15:00:00Z"
   }
 },
 {
   "model": "pedidos.menuplato",
-  "pk": 5,
+  "pk": 1001,
   "fields": {
-    "menu": 2,
-    "plato": 1,
+    "menu": 1001,
+    "plato": 1001,
     "tiempo_menu": "ENTRADA",
     "orden": 1,
     "cantidad_por_persona": "1.00"
@@ -154,170 +602,1121 @@
 },
 {
   "model": "pedidos.menuplato",
-  "pk": 8,
+  "pk": 1002,
   "fields": {
-    "menu": 3,
-    "plato": 2,
-    "tiempo_menu": "ENTRADA",
-    "orden": 1,
-    "cantidad_por_persona": "1.00"
-  }
-},
-{
-  "model": "pedidos.menuplato",
-  "pk": 9,
-  "fields": {
-    "menu": 3,
-    "plato": 1,
-    "tiempo_menu": "ENTRADA",
+    "menu": 1001,
+    "plato": 1003,
+    "tiempo_menu": "PRINCIPAL",
     "orden": 2,
     "cantidad_por_persona": "1.00"
   }
 },
 {
-  "model": "pedidos.eventocatering",
-  "pk": 1,
+  "model": "pedidos.menuplato",
+  "pk": 1003,
   "fields": {
-    "cliente": 1,
-    "menu": 2,
-    "nombre_evento": "asdasd",
-    "tipo_servicio": "BODA",
-    "fecha_inicio": "2026-07-02T02:12:00Z",
-    "fecha_fin": "2026-07-03T02:03:00Z",
-    "direccion": "asda",
-    "numero_personas": 2,
-    "estado": "COTIZADO",
-    "total_contratado": "10.00",
-    "anticipo": "10.00",
-    "observaciones": "asd",
-    "fecha_registro": "2026-07-26T19:16:49.976Z"
+    "menu": 1002,
+    "plato": 1002,
+    "tiempo_menu": "ENTRADA",
+    "orden": 1,
+    "cantidad_por_persona": "2.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 1004,
+  "fields": {
+    "menu": 1002,
+    "plato": 1004,
+    "tiempo_menu": "PRINCIPAL",
+    "orden": 2,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 1005,
+  "fields": {
+    "menu": 1003,
+    "plato": 1005,
+    "tiempo_menu": "PRINCIPAL",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 1006,
+  "fields": {
+    "menu": 1004,
+    "plato": 1006,
+    "tiempo_menu": "ACOMPANAMIENTO",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 1007,
+  "fields": {
+    "menu": 1005,
+    "plato": 1007,
+    "tiempo_menu": "ACOMPANAMIENTO",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 1008,
+  "fields": {
+    "menu": 1006,
+    "plato": 1008,
+    "tiempo_menu": "POSTRE",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 1009,
+  "fields": {
+    "menu": 1007,
+    "plato": 1009,
+    "tiempo_menu": "POSTRE",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.menuplato",
+  "pk": 1010,
+  "fields": {
+    "menu": 1008,
+    "plato": 1010,
+    "tiempo_menu": "BEBIDA",
+    "orden": 1,
+    "cantidad_por_persona": "1.00"
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1001,
+  "fields": {
+    "usuario": null,
+    "nombres": "Luis Alberto Guamán",
+    "identificacion": "0103040401",
+    "telefono": "0991110101",
+    "especialidad": "Chef ejecutivo",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1002,
+  "fields": {
+    "usuario": null,
+    "nombres": "Carla Estefanía Ramón",
+    "identificacion": "0103040402",
+    "telefono": "0991110102",
+    "especialidad": "Pastelería",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1003,
+  "fields": {
+    "usuario": null,
+    "nombres": "Marco Antonio Bermeo",
+    "identificacion": "0103040403",
+    "telefono": "0991110103",
+    "especialidad": "Parrilla",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1004,
+  "fields": {
+    "usuario": null,
+    "nombres": "Silvia Patricia Andrade",
+    "identificacion": "0103040404",
+    "telefono": "0991110104",
+    "especialidad": "Cocina fría",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1005,
+  "fields": {
+    "usuario": null,
+    "nombres": "Jorge Eduardo Calle",
+    "identificacion": "0103040405",
+    "telefono": "0991110105",
+    "especialidad": "Mariscos",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1006,
+  "fields": {
+    "usuario": null,
+    "nombres": "Verónica Alexandra Pesántez",
+    "identificacion": "0103040406",
+    "telefono": "0991110106",
+    "especialidad": "Cocina nacional",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1007,
+  "fields": {
+    "usuario": null,
+    "nombres": "Henry Fabián Sigüenza",
+    "identificacion": "0103040407",
+    "telefono": "0991110107",
+    "especialidad": "Ayudante general",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1008,
+  "fields": {
+    "usuario": null,
+    "nombres": "Daniela Cristina Ortega",
+    "identificacion": "0103040408",
+    "telefono": "0991110408",
+    "especialidad": "Panadería",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1009,
+  "fields": {
+    "usuario": null,
+    "nombres": "Byron Patricio Zamora",
+    "identificacion": "0103040409",
+    "telefono": "0991110109",
+    "especialidad": "Salsas y fondos",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.cocinero",
+  "pk": 1010,
+  "fields": {
+    "usuario": null,
+    "nombres": "Katherine Mishell Loja",
+    "identificacion": "0103040410",
+    "telefono": "0991110110",
+    "especialidad": "Montaje de platos",
+    "activo": true
   }
 },
 {
   "model": "pedidos.eventocatering",
-  "pk": 2,
+  "pk": 1001,
   "fields": {
-    "cliente": 3,
-    "menu": 3,
-    "nombre_evento": "Boda",
+    "cliente": 1001,
+    "menu": 1001,
+    "nombre_evento": "Boda Cabrera - Ortiz",
     "tipo_servicio": "BODA",
-    "fecha_inicio": "2026-07-28T23:00:00Z",
-    "fecha_fin": "2026-07-31T11:00:00Z",
-    "direccion": "asdasd",
-    "numero_personas": 20,
+    "fecha_inicio": "2026-08-08T23:00:00Z",
+    "fecha_fin": "2026-08-09T04:30:00Z",
+    "direccion": "Quinta Lucrecia, Challuabamba",
+    "numero_personas": 120,
     "estado": "CONFIRMADO",
-    "total_contratado": "2000.00",
-    "anticipo": "500.00",
-    "observaciones": "asda",
-    "fecha_registro": "2026-07-28T23:11:10.642Z"
+    "total_contratado": "2940.00",
+    "anticipo": "900.00",
+    "observaciones": "Montaje desde las 15h00",
+    "fecha_registro": "2026-06-01T14:00:00Z"
   }
 },
 {
   "model": "pedidos.eventocatering",
-  "pk": 3,
+  "pk": 1002,
   "fields": {
-    "cliente": 3,
-    "menu": 3,
-    "nombre_evento": "asdasd",
+    "cliente": 1002,
+    "menu": 1005,
+    "nombre_evento": "Cumpleaños de Martín",
     "tipo_servicio": "CUMPLEANOS",
-    "fecha_inicio": "2026-07-27T17:00:00Z",
-    "fecha_fin": "2026-07-28T23:00:00Z",
-    "direccion": "asdas",
-    "numero_personas": 10,
+    "fecha_inicio": "2026-08-09T20:00:00Z",
+    "fecha_fin": "2026-08-10T00:00:00Z",
+    "direccion": "Salón Los Cerezos, Cuenca",
+    "numero_personas": 40,
     "estado": "CONFIRMADO",
-    "total_contratado": "100.00",
-    "anticipo": "50.00",
-    "observaciones": "asda",
-    "fecha_registro": "2026-07-28T23:15:15.906Z"
+    "total_contratado": "396.00",
+    "anticipo": "150.00",
+    "observaciones": "Decoración temática",
+    "fecha_registro": "2026-06-05T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1003,
+  "fields": {
+    "cliente": 1003,
+    "menu": 1003,
+    "nombre_evento": "Almuerzo anual Textiles",
+    "tipo_servicio": "EMPRESARIAL",
+    "fecha_inicio": "2026-08-11T17:30:00Z",
+    "fecha_fin": "2026-08-11T20:00:00Z",
+    "direccion": "Parque Industrial, Cuenca",
+    "numero_personas": 85,
+    "estado": "PREPARACION",
+    "total_contratado": "1266.50",
+    "anticipo": "400.00",
+    "observaciones": "Servicio tipo buffet",
+    "fecha_registro": "2026-06-10T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1004,
+  "fields": {
+    "cliente": 1004,
+    "menu": 1006,
+    "nombre_evento": "Graduación Vintimilla",
+    "tipo_servicio": "GRADUACION",
+    "fecha_inicio": "2026-08-15T00:00:00Z",
+    "fecha_fin": "2026-08-15T04:00:00Z",
+    "direccion": "Hotel Oro Verde, Cuenca",
+    "numero_personas": 60,
+    "estado": "COTIZADO",
+    "total_contratado": "1284.00",
+    "anticipo": "0.00",
+    "observaciones": "Pendiente confirmar",
+    "fecha_registro": "2026-06-18T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1005,
+  "fields": {
+    "cliente": 1005,
+    "menu": 1004,
+    "nombre_evento": "Inauguración obra Andes",
+    "tipo_servicio": "EMPRESARIAL",
+    "fecha_inicio": "2026-08-18T16:00:00Z",
+    "fecha_fin": "2026-08-18T19:00:00Z",
+    "direccion": "Av. de las Américas 12-40",
+    "numero_personas": 75,
+    "estado": "CONFIRMADO",
+    "total_contratado": "1406.25",
+    "anticipo": "500.00",
+    "observaciones": "Incluye coffee break",
+    "fecha_registro": "2026-06-22T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1006,
+  "fields": {
+    "cliente": 1006,
+    "menu": 1007,
+    "nombre_evento": "Matrimonio Sarmiento",
+    "tipo_servicio": "BODA",
+    "fecha_inicio": "2026-08-22T22:30:00Z",
+    "fecha_fin": "2026-08-23T04:59:00Z",
+    "direccion": "Hacienda El Rocío, Paute",
+    "numero_personas": 150,
+    "estado": "PREPARACION",
+    "total_contratado": "4095.00",
+    "anticipo": "1200.00",
+    "observaciones": "Menú de mariscos",
+    "fecha_registro": "2026-06-28T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1007,
+  "fields": {
+    "cliente": 1007,
+    "menu": 1008,
+    "nombre_evento": "Bautizo familia Moscoso",
+    "tipo_servicio": "SOCIAL",
+    "fecha_inicio": "2026-08-25T18:00:00Z",
+    "fecha_fin": "2026-08-25T22:00:00Z",
+    "direccion": "Casa comunal, Baños",
+    "numero_personas": 55,
+    "estado": "CONFIRMADO",
+    "total_contratado": "1078.00",
+    "anticipo": "300.00",
+    "observaciones": "Sin picante",
+    "fecha_registro": "2026-07-02T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1008,
+  "fields": {
+    "cliente": 1008,
+    "menu": 1010,
+    "nombre_evento": "Jornada médica Santa Inés",
+    "tipo_servicio": "EMPRESARIAL",
+    "fecha_inicio": "2026-08-27T13:00:00Z",
+    "fecha_fin": "2026-08-27T17:00:00Z",
+    "direccion": "Av. Daniel Córdova 2-67",
+    "numero_personas": 100,
+    "estado": "CONFIRMADO",
+    "total_contratado": "750.00",
+    "anticipo": "250.00",
+    "observaciones": "Coffee break en dos turnos",
+    "fecha_registro": "2026-07-06T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1009,
+  "fields": {
+    "cliente": 1009,
+    "menu": 1009,
+    "nombre_evento": "Cena vegetariana Ochoa",
+    "tipo_servicio": "SOCIAL",
+    "fecha_inicio": "2026-09-02T00:00:00Z",
+    "fecha_fin": "2026-09-02T03:30:00Z",
+    "direccion": "Av. Solano 5-90",
+    "numero_personas": 35,
+    "estado": "COTIZADO",
+    "total_contratado": "588.00",
+    "anticipo": "0.00",
+    "observaciones": "Sin lácteos en un plato",
+    "fecha_registro": "2026-07-10T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventocatering",
+  "pk": 1010,
+  "fields": {
+    "cliente": 1010,
+    "menu": 1002,
+    "nombre_evento": "Boda Toral - Peña",
+    "tipo_servicio": "BODA",
+    "fecha_inicio": "2026-09-05T23:30:00Z",
+    "fecha_fin": "2026-09-06T06:00:00Z",
+    "direccion": "Quinta San Miguel, Ricaurte",
+    "numero_personas": 180,
+    "estado": "PREPARACION",
+    "total_contratado": "5760.00",
+    "anticipo": "2000.00",
+    "observaciones": "Requiere carpa",
+    "fecha_registro": "2026-07-15T14:00:00Z"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1001,
+  "fields": {
+    "evento": 1001,
+    "cocinero": 1001,
+    "rol": "JEFE",
+    "horas_asignadas": "8.00"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1002,
+  "fields": {
+    "evento": 1001,
+    "cocinero": 1002,
+    "rol": "PASTELERO",
+    "horas_asignadas": "5.00"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1003,
+  "fields": {
+    "evento": 1002,
+    "cocinero": 1003,
+    "rol": "COCINERO",
+    "horas_asignadas": "4.00"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1004,
+  "fields": {
+    "evento": 1003,
+    "cocinero": 1004,
+    "rol": "COCINERO",
+    "horas_asignadas": "6.00"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1005,
+  "fields": {
+    "evento": 1004,
+    "cocinero": 1005,
+    "rol": "COCINERO",
+    "horas_asignadas": "5.50"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1006,
+  "fields": {
+    "evento": 1005,
+    "cocinero": 1006,
+    "rol": "JEFE",
+    "horas_asignadas": "7.00"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1007,
+  "fields": {
+    "evento": 1006,
+    "cocinero": 1007,
+    "rol": "AYUDANTE",
+    "horas_asignadas": "9.00"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1008,
+  "fields": {
+    "evento": 1007,
+    "cocinero": 1008,
+    "rol": "PASTELERO",
+    "horas_asignadas": "4.50"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1009,
+  "fields": {
+    "evento": 1008,
+    "cocinero": 1009,
+    "rol": "COCINERO",
+    "horas_asignadas": "5.00"
+  }
+},
+{
+  "model": "pedidos.eventococinero",
+  "pk": 1010,
+  "fields": {
+    "evento": 1010,
+    "cocinero": 1010,
+    "rol": "AYUDANTE",
+    "horas_asignadas": "10.00"
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1001,
+  "fields": {
+    "nombre": "Mesa redonda de 10 puestos",
+    "categoria": "MESA",
+    "cantidad_total": 30,
+    "costo_reposicion": "85.00",
+    "descripcion": "Mesa plegable de madera",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1002,
+  "fields": {
+    "nombre": "Silla tiffany blanca",
+    "categoria": "SILLA",
+    "cantidad_total": 300,
+    "costo_reposicion": "22.50",
+    "descripcion": "Silla con cojín incluido",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1003,
+  "fields": {
+    "nombre": "Plato base de porcelana",
+    "categoria": "VAJILLA",
+    "cantidad_total": 400,
+    "costo_reposicion": "6.80",
+    "descripcion": "Plato llano de 27 cm",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1004,
+  "fields": {
+    "nombre": "Juego de cubiertos",
+    "categoria": "CUBIERTOS",
+    "cantidad_total": 400,
+    "costo_reposicion": "4.20",
+    "descripcion": "Tenedor, cuchillo y cuchara",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1005,
+  "fields": {
+    "nombre": "Mantel blanco redondo",
+    "categoria": "MANTELERIA",
+    "cantidad_total": 60,
+    "costo_reposicion": "15.00",
+    "descripcion": "Tela antimanchas",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1006,
+  "fields": {
+    "nombre": "Camino de mesa dorado",
+    "categoria": "MANTELERIA",
+    "cantidad_total": 50,
+    "costo_reposicion": "9.50",
+    "descripcion": "Decorativo para mesas largas",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1007,
+  "fields": {
+    "nombre": "Arco decorativo floral",
+    "categoria": "DECORACION",
+    "cantidad_total": 6,
+    "costo_reposicion": "120.00",
+    "descripcion": "Estructura metálica con flores",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1008,
+  "fields": {
+    "nombre": "Chafing dish",
+    "categoria": "EQUIPO",
+    "cantidad_total": 20,
+    "costo_reposicion": "75.00",
+    "descripcion": "Recipiente para buffet caliente",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1009,
+  "fields": {
+    "nombre": "Samovar para café",
+    "categoria": "EQUIPO",
+    "cantidad_total": 8,
+    "costo_reposicion": "95.00",
+    "descripcion": "Capacidad de 10 litros",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.utileria",
+  "pk": 1010,
+  "fields": {
+    "nombre": "Copa de cristal",
+    "categoria": "VAJILLA",
+    "cantidad_total": 350,
+    "costo_reposicion": "3.40",
+    "descripcion": "Copa para agua o vino",
+    "activo": true
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1001,
+  "fields": {
+    "evento": 1001,
+    "utileria": 1001,
+    "cantidad": 12,
+    "estado": "RESERVADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Mesas para el salón principal"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1002,
+  "fields": {
+    "evento": 1001,
+    "utileria": 1002,
+    "cantidad": 120,
+    "estado": "RESERVADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Sillas con funda blanca"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1003,
+  "fields": {
+    "evento": 1002,
+    "utileria": 1003,
+    "cantidad": 40,
+    "estado": "DESPACHADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Vajilla infantil no disponible"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1004,
+  "fields": {
+    "evento": 1003,
+    "utileria": 1008,
+    "cantidad": 6,
+    "estado": "DESPACHADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Para el buffet caliente"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1005,
+  "fields": {
+    "evento": 1004,
+    "utileria": 1005,
+    "cantidad": 8,
+    "estado": "RESERVADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Manteles para mesas redondas"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1006,
+  "fields": {
+    "evento": 1005,
+    "utileria": 1009,
+    "cantidad": 3,
+    "estado": "DEVUELTA",
+    "cantidad_devuelta": 3,
+    "observaciones": "Servicio de café de la mañana"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1007,
+  "fields": {
+    "evento": 1006,
+    "utileria": 1002,
+    "cantidad": 150,
+    "estado": "RESERVADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Traslado en dos camiones"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1008,
+  "fields": {
+    "evento": 1007,
+    "utileria": 1004,
+    "cantidad": 60,
+    "estado": "DEVUELTA",
+    "cantidad_devuelta": 58,
+    "observaciones": "Faltaron dos juegos"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1009,
+  "fields": {
+    "evento": 1008,
+    "utileria": 1010,
+    "cantidad": 100,
+    "estado": "DESPACHADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Copas para agua"
+  }
+},
+{
+  "model": "pedidos.eventoutileria",
+  "pk": 1010,
+  "fields": {
+    "evento": 1010,
+    "utileria": 1007,
+    "cantidad": 2,
+    "estado": "RESERVADA",
+    "cantidad_devuelta": 0,
+    "observaciones": "Arcos para el ingreso"
   }
 },
 {
   "model": "pedidos.comanda",
-  "pk": 1,
+  "pk": 1001,
   "fields": {
-    "codigo": "CMD-24E7C5DF",
-    "evento": 1,
+    "codigo": "CMD-DEMO0001",
+    "evento": 1001,
     "numero_mesa": 1,
     "estado": "DESPACHADA",
-    "observaciones": "asdasad",
-    "fecha_creacion": "2026-07-28T00:56:49.821Z",
-    "fecha_despacho": "2026-07-28T00:57:44.691Z"
+    "observaciones": "Mesa de novios",
+    "fecha_creacion": "2026-08-08T23:30:00Z",
+    "fecha_despacho": "2026-08-09T00:05:00Z"
   }
 },
 {
   "model": "pedidos.comanda",
-  "pk": 3,
+  "pk": 1002,
   "fields": {
-    "codigo": "CMD-B18FFD61",
-    "evento": 1,
-    "numero_mesa": 1,
-    "estado": "PENDIENTE",
-    "observaciones": "zxczxc",
-    "fecha_creacion": "2026-07-28T22:22:57.652Z",
+    "codigo": "CMD-DEMO0002",
+    "evento": 1001,
+    "numero_mesa": 2,
+    "estado": "LISTA",
+    "observaciones": "Sin cebolla",
+    "fecha_creacion": "2026-08-08T23:35:00Z",
     "fecha_despacho": null
   }
 },
 {
   "model": "pedidos.comanda",
-  "pk": 4,
+  "pk": 1003,
   "fields": {
-    "codigo": "CMD-841C5C66",
-    "evento": 2,
+    "codigo": "CMD-DEMO0003",
+    "evento": 1002,
     "numero_mesa": 1,
     "estado": "PREPARANDO",
+    "observaciones": "Porciones para niños",
+    "fecha_creacion": "2026-08-09T20:20:00Z",
+    "fecha_despacho": null
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1004,
+  "fields": {
+    "codigo": "CMD-DEMO0004",
+    "evento": 1003,
+    "numero_mesa": 4,
+    "estado": "PENDIENTE",
+    "observaciones": "Mesa de gerencia",
+    "fecha_creacion": "2026-08-11T17:40:00Z",
+    "fecha_despacho": null
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1005,
+  "fields": {
+    "codigo": "CMD-DEMO0005",
+    "evento": 1003,
+    "numero_mesa": 5,
+    "estado": "DESPACHADA",
     "observaciones": "",
-    "fecha_creacion": "2026-07-28T23:14:14.463Z",
+    "fecha_creacion": "2026-08-11T17:45:00Z",
+    "fecha_despacho": "2026-08-11T18:10:00Z"
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1006,
+  "fields": {
+    "codigo": "CMD-DEMO0006",
+    "evento": 1005,
+    "numero_mesa": 2,
+    "estado": "LISTA",
+    "observaciones": "Servir al terminar el acto",
+    "fecha_creacion": "2026-08-18T16:30:00Z",
+    "fecha_despacho": null
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1007,
+  "fields": {
+    "codigo": "CMD-DEMO0007",
+    "evento": 1006,
+    "numero_mesa": 8,
+    "estado": "PENDIENTE",
+    "observaciones": "Alergia a mariscos",
+    "fecha_creacion": "2026-08-22T23:00:00Z",
+    "fecha_despacho": null
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1008,
+  "fields": {
+    "codigo": "CMD-DEMO0008",
+    "evento": 1007,
+    "numero_mesa": 3,
+    "estado": "PREPARANDO",
+    "observaciones": "Sin picante",
+    "fecha_creacion": "2026-08-25T18:20:00Z",
+    "fecha_despacho": null
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1009,
+  "fields": {
+    "codigo": "CMD-DEMO0009",
+    "evento": 1008,
+    "numero_mesa": 1,
+    "estado": "DESPACHADA",
+    "observaciones": "Primer turno",
+    "fecha_creacion": "2026-08-27T13:15:00Z",
+    "fecha_despacho": "2026-08-27T13:40:00Z"
+  }
+},
+{
+  "model": "pedidos.comanda",
+  "pk": 1010,
+  "fields": {
+    "codigo": "CMD-DEMO0010",
+    "evento": 1010,
+    "numero_mesa": 12,
+    "estado": "CANCELADA",
+    "observaciones": "El invitado se retiró",
+    "fecha_creacion": "2026-09-06T00:00:00Z",
     "fecha_despacho": null
   }
 },
 {
   "model": "pedidos.detallecomanda",
-  "pk": 1,
+  "pk": 1001,
   "fields": {
-    "comanda": 1,
-    "plato": 1,
-    "cantidad": 1,
-    "observaciones": ""
+    "comanda": 1001,
+    "plato": 1001,
+    "cantidad": 2,
+    "observaciones": "Bien frío"
   }
 },
 {
   "model": "pedidos.detallecomanda",
-  "pk": 2,
+  "pk": 1002,
   "fields": {
-    "comanda": 3,
-    "plato": 2,
-    "cantidad": 1,
-    "observaciones": ""
+    "comanda": 1001,
+    "plato": 1003,
+    "cantidad": 2,
+    "observaciones": "Término medio"
   }
 },
 {
   "model": "pedidos.detallecomanda",
-  "pk": 3,
+  "pk": 1003,
   "fields": {
-    "comanda": 3,
-    "plato": 1,
-    "cantidad": 1,
-    "observaciones": ""
-  }
-},
-{
-  "model": "pedidos.detallecomanda",
-  "pk": 4,
-  "fields": {
-    "comanda": 4,
-    "plato": 2,
+    "comanda": 1002,
+    "plato": 1002,
     "cantidad": 4,
     "observaciones": ""
   }
 },
 {
   "model": "pedidos.detallecomanda",
-  "pk": 5,
+  "pk": 1004,
   "fields": {
-    "comanda": 4,
-    "plato": 1,
-    "cantidad": 4,
+    "comanda": 1003,
+    "plato": 1004,
+    "cantidad": 6,
+    "observaciones": "Sin salsa"
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 1005,
+  "fields": {
+    "comanda": 1004,
+    "plato": 1005,
+    "cantidad": 8,
     "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 1006,
+  "fields": {
+    "comanda": 1005,
+    "plato": 1006,
+    "cantidad": 10,
+    "observaciones": "Porción extra"
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 1007,
+  "fields": {
+    "comanda": 1006,
+    "plato": 1007,
+    "cantidad": 5,
+    "observaciones": "Bien doradas"
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 1008,
+  "fields": {
+    "comanda": 1007,
+    "plato": 1008,
+    "cantidad": 3,
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 1009,
+  "fields": {
+    "comanda": 1008,
+    "plato": 1009,
+    "cantidad": 4,
+    "observaciones": "Cortar en porciones pequeñas"
+  }
+},
+{
+  "model": "pedidos.detallecomanda",
+  "pk": 1010,
+  "fields": {
+    "comanda": 1009,
+    "plato": 1010,
+    "cantidad": 12,
+    "observaciones": "Sin azúcar"
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1001,
+  "fields": {
+    "evento": 1001,
+    "responsable": null,
+    "fecha_salida": "2026-08-08T20:00:00Z",
+    "fecha_entrega": "2026-08-08T21:10:00Z",
+    "direccion_entrega": "Quinta Lucrecia, Challuabamba",
+    "vehiculo": "Camioneta PBA-1234",
+    "estado": "ENTREGADA",
+    "observaciones": "Sin novedad"
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1002,
+  "fields": {
+    "evento": 1002,
+    "responsable": null,
+    "fecha_salida": "2026-08-09T18:00:00Z",
+    "fecha_entrega": "2026-08-09T18:45:00Z",
+    "direccion_entrega": "Salón Los Cerezos, Cuenca",
+    "vehiculo": "Furgoneta PCA-5678",
+    "estado": "ENTREGADA",
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1003,
+  "fields": {
+    "evento": 1003,
+    "responsable": null,
+    "fecha_salida": "2026-08-11T15:00:00Z",
+    "fecha_entrega": null,
+    "direccion_entrega": "Parque Industrial, Cuenca",
+    "vehiculo": "Camión PGB-9012",
+    "estado": "EN_RUTA",
+    "observaciones": "Tráfico en la av. España"
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1004,
+  "fields": {
+    "evento": 1004,
+    "responsable": null,
+    "fecha_salida": "2026-08-14T21:30:00Z",
+    "fecha_entrega": null,
+    "direccion_entrega": "Hotel Oro Verde, Cuenca",
+    "vehiculo": "Camioneta PBA-1234",
+    "estado": "PENDIENTE",
+    "observaciones": "Confirmar acceso al hotel"
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1005,
+  "fields": {
+    "evento": 1005,
+    "responsable": null,
+    "fecha_salida": "2026-08-18T14:00:00Z",
+    "fecha_entrega": "2026-08-18T14:50:00Z",
+    "direccion_entrega": "Av. de las Américas 12-40",
+    "vehiculo": "Furgoneta PCA-5678",
+    "estado": "ENTREGADA",
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1006,
+  "fields": {
+    "evento": 1006,
+    "responsable": null,
+    "fecha_salida": "2026-08-22T19:00:00Z",
+    "fecha_entrega": null,
+    "direccion_entrega": "Hacienda El Rocío, Paute",
+    "vehiculo": "Camión PGB-9012",
+    "estado": "PREPARANDO",
+    "observaciones": "Se requieren dos viajes"
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1007,
+  "fields": {
+    "evento": 1007,
+    "responsable": null,
+    "fecha_salida": "2026-08-25T16:00:00Z",
+    "fecha_entrega": "2026-08-25T16:55:00Z",
+    "direccion_entrega": "Casa comunal, Baños",
+    "vehiculo": "Camioneta PBA-1234",
+    "estado": "ENTREGADA",
+    "observaciones": ""
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1008,
+  "fields": {
+    "evento": 1008,
+    "responsable": null,
+    "fecha_salida": "2026-08-27T11:30:00Z",
+    "fecha_entrega": null,
+    "direccion_entrega": "Av. Daniel Córdova 2-67",
+    "vehiculo": "Furgoneta PCA-5678",
+    "estado": "INCIDENCIA",
+    "observaciones": "Se rompieron dos copas"
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1009,
+  "fields": {
+    "evento": 1009,
+    "responsable": null,
+    "fecha_salida": "2026-09-01T22:00:00Z",
+    "fecha_entrega": null,
+    "direccion_entrega": "Av. Solano 5-90",
+    "vehiculo": "Camioneta PBA-1234",
+    "estado": "PENDIENTE",
+    "observaciones": "Evento aún por confirmar"
+  }
+},
+{
+  "model": "pedidos.entrega",
+  "pk": 1010,
+  "fields": {
+    "evento": 1010,
+    "responsable": null,
+    "fecha_salida": "2026-09-05T19:00:00Z",
+    "fecha_entrega": null,
+    "direccion_entrega": "Quinta San Miguel, Ricaurte",
+    "vehiculo": "Camión PGB-9012",
+    "estado": "CANCELADA",
+    "observaciones": "Se reprogramó la salida"
   }
 }
 ]
