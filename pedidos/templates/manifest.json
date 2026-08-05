@@ -1,0 +1,51 @@
+{
+  "name": "Gestor de Pedidos y Catering",
+  "short_name": "Gestor",
+  "description": "Sistema de gestion de pedidos, menus, platos y eventos de catering",
+  "start_url": "/dashboard/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#e8281a",
+  "lang": "es-EC",
+  "dir": "ltr",
+  "categories": ["business", "food", "productivity"],
+  "icons": [
+    {
+      "src": "/static/img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/img/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard/",
+      "icons": [{ "src": "/static/img/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Comandas",
+      "url": "/comandas/",
+      "icons": [{ "src": "/static/img/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Eventos",
+      "url": "/eventos/",
+      "icons": [{ "src": "/static/img/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
